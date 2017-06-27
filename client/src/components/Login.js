@@ -1,9 +1,10 @@
 import React from 'react'
 
-//Input fields \u2713
-//Validation \u2713
+//Input fields
+//Validation
 //Submit button \u2713
 //Wire Submit button \u2713
+
 //Hash Salt Capability
 //Local Storage of Token Save
 //Redirect to Profile
@@ -41,6 +42,11 @@ class Login extends React.Component {
         else {
             console.log(`Form Error!`)
         }
+    }
+    render(){
+        return(
+            <h1>Some data</h1>
+        )
     }
 
 }

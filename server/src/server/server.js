@@ -22,7 +22,7 @@ app.use((err, req, res, next) => {
     return;
   }
   logger.log(err.stack);
-  res.status(500).send("Some Error Hit");
+  res.status(500).send(`Some Error Hit: ${err.stack}`);
 });
 
 //Export app now that all components have been added

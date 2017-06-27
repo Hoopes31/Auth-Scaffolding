@@ -17,7 +17,8 @@ router.use("/plant", plantRoutes);
 router.use("/user", userRoutes);
 
 //BASE API TEST ROUTES
-
+//Sendfile isn't doing anyting when using the front end
+//Since we are proxying
 router.get('/', function(req, res) {
     res.sendFile('/', __dirname + '/client/public/index.html')
 })
