@@ -27,7 +27,6 @@ class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         //if the form is correct send api!
-        if (false) {
             fetch('/api/login') , {
                 method: 'POST',
                 headers: {
@@ -36,14 +35,29 @@ class Login extends React.Component {
                 },
                 body: JSON.stringify(this.state)
                 }
-        } //else send errors
-        else {
-            console.log(`Form Error!`)
-        }
     }
     render(){
         return(
-            <h1>Some data</h1>
+            <div className='Login'>
+                <form onSubmit={this.handleSubmit}>
+                <h1>Login</h1>
+                    <input 
+                        id='username' 
+                        type='text' 
+                        placeholder='Username'
+                        required 
+                        onChange={this.handleChange}/>
+                        <input 
+                        id='password' 
+                        type='password' 
+                        placeholder='Password'
+                        required 
+                        onChange={this.handleChange}/>
+                        <button
+                        type='submit'>
+                        Login</button>
+                    </form>
+            </div>
         )
     }
 
