@@ -2,8 +2,6 @@ import React from 'react'
 
 //Input fields
 //Validation
-//Submit button \u2713
-//Wire Submit button \u2713
 
 //Hash Salt Capability
 //Local Storage of Token Save

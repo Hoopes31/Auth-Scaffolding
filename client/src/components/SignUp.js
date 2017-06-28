@@ -4,16 +4,36 @@ class SignUp extends React.Component {
     constructor(){
         super()
         this.state = {
-            username: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            gardin: ''
+            username: false,
+            firstName: false,
+            lastName: false,
+            email: false,
+            password: false,
+            passwordConfirm: false
         }
     }
-    validateForm() {
-        return this.state.username.length > 0 && this.state.password.length > 0
+    validateForm(stateData) {
+        if (!this.state.username) {
+            return false
+        }
+        else if (!this.state.firstName) {
+            return false
+        }
+        else if (!this.state.lastName) {
+            return false
+        }
+        else if (!this.state.email) {
+            return false
+        }
+        else if (!this.state.password) {
+            return false
+        }
+        else if (this.state.password != this.state.passwordConfirm) {
+            document.getElementById('passwordConfirm').setCustomValidity('Passwords don\'t match')
+        }
+        else {
+            return true
+        }               
     }
     handleChange = (event) => {
         this.setState({
@@ -22,13 +42,18 @@ class SignUp extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault()
-        fetch('/api/signUp'), {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
+        if(!this.validateForm(this.state)) {
+            return 
+        }
+        else {
+            fetch('/api/signUp'), {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state)
+            }
         }
     }
     render(){
@@ -39,35 +64,40 @@ class SignUp extends React.Component {
                     <input 
                         id='username' 
                         type='text' 
-                        placeholder='Username' 
+                        placeholder='Username'
+                        required 
                         onChange={this.handleChange}/>
                     <input 
                         id='firstName' 
                         type='text' 
                         placeholder='First Name' 
+                        required
                         onChange={this.handleChange}/>
                     <input 
                         id='lastName' 
                         type='text' 
                         placeholder ='Last Name' 
+                        required
                         onChange={this.handleChange}/>
                     <input 
                         id='email' 
                         type='email' 
                         placeholder='Email Address' 
+                        required
                         onChange={this.handleChange}/>
                     <input 
                         id='password' 
                         type='password' 
                         placeholder ='Password' 
+                        required
                         onChange={this.handleChange}/>
                     <input 
-                        id='gardin' 
-                        type='text' 
-                        placeholder='Gardin ID' 
+                        id='passwordConfirm' 
+                        type='password' 
+                        placeholder ='Password Confirm' 
+                        required
                         onChange={this.handleChange}/>                                                
                 <button 
-                    disabled={ ! this.validateForm()}
                     type='submit'>
                     Sign Up!</button>
             </form>
