@@ -25,7 +25,8 @@ class SignUp extends React.Component {
         else if (!this.state.email) {
             return false
         }
-        else if (!this.state.password) {
+        else if (!this.state.password || this.state.password.length < 8) {
+            document.getElementById('password').setCustomValidity('Passwords must be at least 8 characters long')
             return false
         }
         else if (this.state.password != this.state.passwordConfirm) {
@@ -52,8 +53,15 @@ class SignUp extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.state)
+                body: {
+                    username: this.state.username,
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    email: this.state.email,
+                    password: this.state.password,
+                }
             }
+            console.log(`${JSON.stringify(this.state)}`)
         }
     }
     render(){

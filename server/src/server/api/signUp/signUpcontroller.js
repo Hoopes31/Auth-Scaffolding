@@ -31,5 +31,5 @@ exports.createUser = (req, res) => {
 };
 
 exports.root = (req, res) => {
-  res.sendFile("/", { root: "./src/client/" });
-};
+  res.send('sign up page')
+}

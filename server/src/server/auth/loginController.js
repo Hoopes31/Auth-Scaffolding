@@ -8,7 +8,7 @@ var signToken = require("./auth").signToken;
 //Verification && Tokenization Middleware here ---->
 
 exports.root = (req, res) => {
-  res.sendFile("/", { root: "./src/client/login/" });
+  res.send('login')
 };
 
 exports.login = (req, res, next) => {
