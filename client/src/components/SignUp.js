@@ -10,6 +10,7 @@ class SignUp extends React.Component {
             email: '',
             password: '',
             passwordConfirm: '',
+            authToken: '',
             errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,11 +40,16 @@ class SignUp extends React.Component {
                     email: this.state.email,
                     password: this.state.password,
                 })
-            }).then(console.log('weeee'))
-            console.log(`${JSON.stringify(this.state)}`)
+            })
+            .then(response => response.json())
+            .then(result => console.log(result))
         }
     }
-
+    setToken(result) {
+        this.setState({
+            authToken: result
+        })
+    }
     validateForm () {
 
         //build username validator

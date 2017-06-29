@@ -13,11 +13,11 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            errorMessage: ''
+            token: ''
         }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-}
+    }
 
     handleChange(event) {
         this.setState({
@@ -25,13 +25,12 @@ class Login extends React.Component {
         })
     }
 
+    setToken(result) {
+        this.setState({token: result.token})
+    }
+
     handleSubmit(event) {
         event.preventDefault()
-        /*
-        //if the form is correct send api!
-        if (this.validateForm) {
-            false console.log('Error' message)
-        } else {
             fetch('/api/login', {
                 method: 'POST',
                 headers: {
@@ -41,25 +40,8 @@ class Login extends React.Component {
                 mode: 'cors',
                 body: JSON.stringify(this.state)
             })
-        }
-        */
-        this.validateForm()
-    }
-
-    validateForm () {
-        console.log('Validating')         
-
-        if(this.state.password.length <= 8) {
-            console.log('password is too short')
-            this.setState({errorMessage: 'password is too short'})
-        }
-        else if (this.state.password !== this.state.username) {
-            console.log('passwords don\'t match')
-            this.setState({errorMessage: 'passwords do not match'})
-        }
-        else {
-            console.log('passed validation')
-        }
+            .then(response => response.json())
+            .then(result => this.setToken(result))
     }
 
     render(){
@@ -87,7 +69,6 @@ class Login extends React.Component {
             </div>
         )
     }
-
 }
 
 export default Login
