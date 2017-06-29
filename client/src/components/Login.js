@@ -24,7 +24,10 @@ class Login extends React.Component {
             [event.target.id]: event.target.value
         })
     }
-
+    //setToken to the state of the application
+    //then set token to the browser
+    //This needs to be checked for proper use. I blieve the arguments passed to setItem are
+    //named imporperly for JWT auth.
     setToken(result) {
         this.setState({token: result.token})
         localStorage.setItem('Authorization', result.token)

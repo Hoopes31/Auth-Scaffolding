@@ -14,5 +14,4 @@ exports.root = (req, res) => {
 exports.login = (req, res, next) => {
   var token = `Bearer ${signToken(req.user._id)}`;
   res.send({ token: token })
-  //res.header("Authorization", token);
 };
