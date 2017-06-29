@@ -15,11 +15,7 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.2",
-<<<<<<< HEAD
     "colors": "5.0.3",
-=======
-    "colors": "^5.0.3",
->>>>>>> 3aa8c2a71cca19eedf907fef712df04889021fc8
     "dotenv": "^4.0.0",
     "eslint": "^4.0.0",
     "jest": "^20.0.4",

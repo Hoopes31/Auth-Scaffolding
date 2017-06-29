@@ -10,14 +10,15 @@ exports.createUser = (req, res) => {
   var newUser = new User();
 
   //grab data and destructure if needed
-  var data = req.body;
+  var data = req.body
 
   //use lodash to write object properties into newUser
   _.assign(newUser, data);
 
   //save to mongo db
+  
   newUser.save(function(err, newUser) {
-    if (err) return console.error(err);
+    if (err) return console.error(err.stack);
 
     //check to make sure user was created in console
     //delete later
@@ -26,7 +27,7 @@ exports.createUser = (req, res) => {
     var token = signToken(user._id);
     res.json({ token: token });
   });
-
+  
   res.send(`Thanks for creating a profile`);
 };
 

@@ -27,14 +27,15 @@ class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         //if the form is correct send api!
-            fetch('/api/login') , {
+            fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                mode: 'cors',
                 body: JSON.stringify(this.state)
-                }
+            })
     }
     render(){
         return(

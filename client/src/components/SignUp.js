@@ -11,8 +11,14 @@ class SignUp extends React.Component {
             password: false,
             passwordConfirm: false
         }
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
     validateForm(stateData) {
+        //Validation currently fucks up if you enter the wrong password in pass confirm
+        //Figure out why its not working.
+        var passwordTest = this.state.password.toString()
+        var passwordTestConfirm = this.state.passwordConfirm.toString()
         if (!this.state.username) {
             return false
         }
@@ -29,7 +35,7 @@ class SignUp extends React.Component {
             document.getElementById('password').setCustomValidity('Passwords must be at least 8 characters long')
             return false
         }
-        else if (this.state.password != this.state.passwordConfirm) {
+        else if (passwordTest != passwordTestConfirm) {
             document.getElementById('passwordConfirm').setCustomValidity('Passwords don\'t match')
         }
         else {
@@ -43,24 +49,25 @@ class SignUp extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault()
+        this.validateForm()
         if(!this.validateForm(this.state)) {
             return 
         }
         else {
-            fetch('/api/signUp'), {
+            fetch('/api/signUp', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: {
+                body: JSON.stringify({
                     username: this.state.username,
                     firstName: this.state.firstName,
                     lastName: this.state.lastName,
                     email: this.state.email,
                     password: this.state.password,
-                }
-            }
+                })
+            })
             console.log(`${JSON.stringify(this.state)}`)
         }
     }
