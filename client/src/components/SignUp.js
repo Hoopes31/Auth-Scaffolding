@@ -4,48 +4,18 @@ class SignUp extends React.Component {
     constructor(){
         super()
         this.state = {
-            username: false,
-            firstName: false,
-            lastName: false,
-            email: false,
-            password: false,
-            passwordConfirm: false
+            username: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            passwordConfirm: '',
+            errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    validateForm (e) {
 
-        //Validation currently fucks up if you enter the wrong password in pass confirm
-        //Figure out why its not working.
-
-        var passwordTest = document.getElementById('password')
-        var passwordConfirmTest = document.getElementById('passwordConfirm')
-
-        if (!this.state.username) {
-            return false
-        }
-        else if (!this.state.firstName) {
-            return false
-        }
-        else if (!this.state.lastName) {
-            return false
-        }
-        else if (!this.state.email) {
-            return false
-        }
-        else if (!this.state.password || this.state.password.length < 8) {
-            passwordTest.setCustomValidity('Passwords must be at least 8 characters long')
-            return false
-        }
-        else if (this.state.password !== this.state.passworConfirm) {
-            passwordConfirmTest.setCustomValidity('Passwords don\'t match')
-            return false
-        }
-        else {
-            return true
-        }               
-    }
     handleChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
@@ -53,10 +23,9 @@ class SignUp extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault()
-        if(!this.validateForm(this.state)) {
-            return false
+        if(!this.validateForm()) {
         }
-        else {
+        else { 
             fetch('/api/signUp', {
                 method: 'POST',
                 headers: {
@@ -72,8 +41,29 @@ class SignUp extends React.Component {
                 })
             }).then(console.log('weeee'))
             console.log(`${JSON.stringify(this.state)}`)
+            */
         }
     }
+
+    validateForm () {
+        console.log('Validating')         
+
+        if(this.state.password.length <= 8) {
+            console.log('password is too short')
+            this.setState({errorMessage: 'password is too short'})
+            return false
+        }
+        else if (this.state.password !== this.state.passwordConfirm) {
+            console.log('passwords don\'t match')
+            this.setState({errorMessage: 'passwords do not match'})
+            return false
+        }
+        else {
+            console.log('passed validation')
+            return true
+        }
+    }
+
     render(){
     return(
         <div className='SignUp'>               
@@ -116,8 +106,9 @@ class SignUp extends React.Component {
                         required
                         onChange={this.handleChange}/>                                                
                 <button 
-                    type='submit' onClick={this.validateForm(this.state)}>
+                    type='submit'>
                     Sign Up!</button>
+                <div id='errorMessage'>{this.state.errorMessage}</div>
             </form>
         </div>
         )

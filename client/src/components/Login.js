@@ -12,22 +12,26 @@ class Login extends React.Component {
         super()
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            errorMessage: ''
         }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 }
 
-    handleChange(e) {
+    handleChange(event) {
         this.setState({
-            [e.target.id]: e.target.value
+            [event.target.id]: event.target.value
         })
     }
 
-    handleSubmit(e) {
-        e.preventDefault()
+    handleSubmit(event) {
+        event.preventDefault()
         /*
         //if the form is correct send api!
+        if (this.validateForm) {
+            false console.log('Error' message)
+        } else {
             fetch('/api/login', {
                 method: 'POST',
                 headers: {
@@ -37,33 +41,25 @@ class Login extends React.Component {
                 mode: 'cors',
                 body: JSON.stringify(this.state)
             })
-            */
+        }
+        */
         this.validateForm()
     }
 
     validateForm () {
+        console.log('Validating')         
 
-        //Validation currently fucks up if you enter the wrong password in pass confirm
-        //Figure out why its not working.
-        /*
-        let usernameTest = document.getElementById('username')
-        let passwordTest = document.getElementById('password')
-        */
-        if (!this.state.username || this.state.password.length < 8) {
-            //usernameTest.setCustomValidity('Passwords must be at least 8 characters long')
-            
-            console.log('invalid: pass too short')
-            return false
+        if(this.state.password.length <= 8) {
+            console.log('password is too short')
+            this.setState({errorMessage: 'password is too short'})
         }
-        else if (this.state.username !== this.state.password) {
-            //passwordTest.setCustomValidity('Passwords don\'t match')
-            console.log('invalid: pass doesn\'t match')
-            return false
+        else if (this.state.password !== this.state.username) {
+            console.log('passwords don\'t match')
+            this.setState({errorMessage: 'passwords do not match'})
         }
         else {
-            console.log('valid')
-            return true
-        }               
+            console.log('passed validation')
+        }
     }
 
     render(){
@@ -83,6 +79,7 @@ class Login extends React.Component {
                         placeholder='Password'
                         required 
                         onChange={this.handleChange}/>
+                        <div id='errorMessage'>{this.state.errorMessage}</div>
                         <button
                         type='submit'>
                         Login</button>
