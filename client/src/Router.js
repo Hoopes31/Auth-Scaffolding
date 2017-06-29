@@ -2,7 +2,6 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Landing from './components/Landing'
 import Profile from './components/Profile'
-import Logout from './components/Logout'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 

@@ -41,23 +41,27 @@ class Login extends React.Component {
         this.validateForm()
     }
 
-    validateForm (e) {
+    validateForm () {
 
         //Validation currently fucks up if you enter the wrong password in pass confirm
         //Figure out why its not working.
-
+        /*
         let usernameTest = document.getElementById('username')
         let passwordTest = document.getElementById('password')
-
+        */
         if (!this.state.username || this.state.password.length < 8) {
-            usernameTest.setCustomValidity('Passwords must be at least 8 characters long')
+            //usernameTest.setCustomValidity('Passwords must be at least 8 characters long')
+            
+            console.log('invalid: pass too short')
             return false
         }
-        else if (this.state.username != this.state.password) {
-            passwordTest.setCustomValidity('Passwords don\'t match')
+        else if (this.state.username !== this.state.password) {
+            //passwordTest.setCustomValidity('Passwords don\'t match')
+            console.log('invalid: pass doesn\'t match')
             return false
         }
         else {
+            console.log('valid')
             return true
         }               
     }

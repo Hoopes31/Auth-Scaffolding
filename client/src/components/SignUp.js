@@ -38,7 +38,7 @@ class SignUp extends React.Component {
             passwordTest.setCustomValidity('Passwords must be at least 8 characters long')
             return false
         }
-        else if (this.state.password != this.state.passworConfirm) {
+        else if (this.state.password !== this.state.passworConfirm) {
             passwordConfirmTest.setCustomValidity('Passwords don\'t match')
             return false
         }
