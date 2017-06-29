@@ -15,14 +15,13 @@ class SignUp extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
     validateForm() {
+
         //Validation currently fucks up if you enter the wrong password in pass confirm
         //Figure out why its not working.
+
         var passwordTest = document.getElementById('password')
         var passwordConfirmTest = document.getElementById('passwordConfirm')
-        /*
-        passwordTest.setCustomValidity('')
-        passwordConfirmTest.setCustomValidity('')
-        */
+
         if (!this.state.username) {
             return false
         }
