@@ -41,11 +41,12 @@ class SignUp extends React.Component {
                 })
             }).then(console.log('weeee'))
             console.log(`${JSON.stringify(this.state)}`)
-            */
         }
     }
 
     validateForm () {
+
+        //build username validator
         console.log('Validating')         
 
         if(this.state.password.length <= 8) {

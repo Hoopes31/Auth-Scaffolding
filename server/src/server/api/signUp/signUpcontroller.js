@@ -24,7 +24,7 @@ exports.createUser = (req, res) => {
     //delete later
 
     console.log(JSON.stringify(newUser));
-    var token = signToken(user._id);
+    var token = signToken(newUser._id);
     res.json({ token: token });
   });
   
