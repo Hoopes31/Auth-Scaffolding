@@ -27,6 +27,7 @@ class Login extends React.Component {
 
     setToken(result) {
         this.setState({token: result.token})
+        localStorage.setItem('Authorization', result.token)
     }
 
     handleSubmit(event) {
