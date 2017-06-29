@@ -7,28 +7,28 @@ exports.createUser = (req, res) => {
   var User = require("../user/userModel");
 
   //instance of model
-  var newUser = new User();
+  var user = new User();
 
   //grab data and destructure if needed
   var data = req.body
 
   //use lodash to write object properties into newUser
-  _.assign(newUser, data);
+  _.assign(user, data);
 
   //save to mongo db
   
-  newUser.save(function(err, newUser) {
+  user.save(function(err, user) {
     if (err) return console.error(err.stack);
 
     //check to make sure user was created in console
     //delete later
 
-    console.log(JSON.stringify(newUser));
-    var token = signToken(newUser._id);
+    console.log(JSON.stringify(user));
+    var token = signToken(user._id);
     res.json({ token: token });
   });
   
-  res.send(`Thanks for creating a profile`);
+  console.log(`Thanks for creating a profile`);
 };
 
 exports.root = (req, res) => {
