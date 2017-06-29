@@ -26,6 +26,7 @@ class Login extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        /*
         //if the form is correct send api!
             fetch('/api/login', {
                 method: 'POST',
@@ -36,7 +37,31 @@ class Login extends React.Component {
                 mode: 'cors',
                 body: JSON.stringify(this.state)
             })
+            */
+        this.validateForm()
     }
+
+    validateForm (e) {
+
+        //Validation currently fucks up if you enter the wrong password in pass confirm
+        //Figure out why its not working.
+
+        let usernameTest = document.getElementById('username')
+        let passwordTest = document.getElementById('password')
+
+        if (!this.state.username || this.state.password.length < 8) {
+            usernameTest.setCustomValidity('Passwords must be at least 8 characters long')
+            return false
+        }
+        else if (this.state.username != this.state.password) {
+            passwordTest.setCustomValidity('Passwords don\'t match')
+            return false
+        }
+        else {
+            return true
+        }               
+    }
+
     render(){
         return(
             <div className='Login'>

@@ -14,7 +14,7 @@ class SignUp extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    validateForm() {
+    validateForm (e) {
 
         //Validation currently fucks up if you enter the wrong password in pass confirm
         //Figure out why its not working.
