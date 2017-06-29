@@ -14,11 +14,15 @@ class SignUp extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
-    validateForm(stateData) {
+    validateForm() {
         //Validation currently fucks up if you enter the wrong password in pass confirm
         //Figure out why its not working.
-        var passwordTest = this.state.password.toString()
-        var passwordTestConfirm = this.state.passwordConfirm.toString()
+        var passwordTest = document.getElementById('password')
+        var passwordConfirmTest = document.getElementById('passwordConfirm')
+        /*
+        passwordTest.setCustomValidity('')
+        passwordConfirmTest.setCustomValidity('')
+        */
         if (!this.state.username) {
             return false
         }
@@ -32,11 +36,12 @@ class SignUp extends React.Component {
             return false
         }
         else if (!this.state.password || this.state.password.length < 8) {
-            document.getElementById('password').setCustomValidity('Passwords must be at least 8 characters long')
+            passwordTest.setCustomValidity('Passwords must be at least 8 characters long')
             return false
         }
-        else if (passwordTest != passwordTestConfirm) {
-            document.getElementById('passwordConfirm').setCustomValidity('Passwords don\'t match')
+        else if (this.state.password != this.state.passworConfirm) {
+            passwordConfirmTest.setCustomValidity('Passwords don\'t match')
+            return false
         }
         else {
             return true
@@ -49,9 +54,8 @@ class SignUp extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault()
-        this.validateForm()
         if(!this.validateForm(this.state)) {
-            return 
+            return false
         }
         else {
             fetch('/api/signUp', {
@@ -67,7 +71,7 @@ class SignUp extends React.Component {
                     email: this.state.email,
                     password: this.state.password,
                 })
-            })
+            }).then(console.log('weeee'))
             console.log(`${JSON.stringify(this.state)}`)
         }
     }
@@ -113,7 +117,7 @@ class SignUp extends React.Component {
                         required
                         onChange={this.handleChange}/>                                                
                 <button 
-                    type='submit'>
+                    type='submit' onClick={this.validateForm(this.state)}>
                     Sign Up!</button>
             </form>
         </div>
