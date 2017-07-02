@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Profile = () => (
     <div>
-        <Link to='/logout'>Logout</Link>
+        <Link to='/login'>Logout</Link>
         <h1>Profile Page</h1>
     </div>
 )

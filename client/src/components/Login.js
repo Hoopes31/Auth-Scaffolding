@@ -1,19 +1,17 @@
 import React from 'react'
 
-//Input fields
-//Validation
-
-//Hash Salt Capability
-//Local Storage of Token Save
-//Redirect to Profile
+//Input fields: DONE
+//Validation: DONE
+//Hash Salt Capability: DONE BACKEND AUTH
+//Local Storage of Token Save: DONE
+//Redirect to Profile: DONE
 
 class Login extends React.Component {
     constructor(){
         super()
         this.state = {
             username: '',
-            password: '',
-            token: ''
+            password: ''
         }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,8 +27,8 @@ class Login extends React.Component {
     //This needs to be checked for proper use. I blieve the arguments passed to setItem are
     //named imporperly for JWT auth.
     setToken(result) {
-        this.setState({token: result.token})
-        localStorage.setItem('Authorization', result.token)
+        console.log(result)
+        sessionStorage.setItem('Authorization', result.token)
     }
 
     handleSubmit(event) {
@@ -46,6 +44,7 @@ class Login extends React.Component {
             })
             .then(response => response.json())
             .then(result => this.setToken(result))
+            .then(this.props.history.push('/gardin'))
     }
 
     render(){

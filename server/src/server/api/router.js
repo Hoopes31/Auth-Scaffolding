@@ -1,5 +1,8 @@
 //This is your router bundle aka api combinator
 
+const verifyUser = require('../auth/auth').verifyUser
+const decodeToken = require('../auth/auth').decodeToken
+
 const router = require('express').Router();
 //setup route constants
 
@@ -12,7 +15,7 @@ const signUpRoutes = require("./signUp/signUpRoutes");
 
 router.use("/signUp", signUpRoutes);
 router.use("/login", loginRoutes);
-router.use("/plant", plantRoutes);
-router.use("/user", userRoutes);
+router.use("/plant", decodeToken(), verifyUser(), plantRoutes);
+router.use("/user", decodeToken(), verifyUser(), userRoutes);
 
 module.exports = router;

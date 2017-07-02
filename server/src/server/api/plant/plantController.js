@@ -23,7 +23,7 @@ exports.root = (req, res, next) => {
         //Delete Plants
         //Feed Plants
   logger.log(`Plant Route`);
-  res.sendFile("/", { root: "./src/client/" });
+  res.send('Plant Root Hit!')
 };
 
 exports.findPlantById = (req, res, next, id) => {
