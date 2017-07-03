@@ -27,7 +27,6 @@ class Login extends React.Component {
     //This needs to be checked for proper use. I blieve the arguments passed to setItem are
     //named imporperly for JWT auth.
     setToken(result) {
-        console.log(result)
         sessionStorage.setItem('Authorization', result.token)
     }
 
@@ -39,12 +38,12 @@ class Login extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                mode: 'cors',
                 body: JSON.stringify(this.state)
             })
             .then(response => response.json())
             .then(result => this.setToken(result))
-            .then(this.props.history.push('/gardin'))
+
+            //.then(this.props.history.push('/gardin'))
     }
 
     render(){

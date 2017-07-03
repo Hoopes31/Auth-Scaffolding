@@ -6,7 +6,6 @@
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
-
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
@@ -23,7 +22,7 @@ app.use((err, req, res, next) => {
     return;
   }
   logger.log(err.stack);
-  res.status(500).send(`Some Error Hit: ${err.stack}`);
+  res.status(500).send("Some Error Hit");
 });
 
 //Export app now that all components have been added

@@ -8,14 +8,11 @@ var signToken = require("./auth").signToken;
 //Verification && Tokenization Middleware here ---->
 
 exports.root = (req, res) => {
-  res.send('login Root hit')
+  res.sendFile("/", { root: "./src/client/login/" });
 };
 
 exports.login = (req, res, next) => {
   var token = `Bearer ${signToken(req.user._id)}`;
-  res.send({ token: token })
-
-  //CHECK TO MAKE SURE THIS WORKS~~~~~~~ø
-  //res.headers.authorization = token
-  //Error cannont set property 'authorization' of undefined
+  res.send(token)
+  //res.header("Authorization", token);
 };
