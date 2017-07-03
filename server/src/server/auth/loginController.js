@@ -13,6 +13,6 @@ exports.root = (req, res) => {
 
 exports.login = (req, res, next) => {
   var token = `Bearer ${signToken(req.user._id)}`;
-  res.send(token)
-  //res.header("Authorization", token);
+  res.json(token)
+  res.end()
 };
