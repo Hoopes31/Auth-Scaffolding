@@ -11,7 +11,9 @@ class Login extends React.Component {
         super()
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            token: '',
+            errorMessage: ''
         }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -24,10 +26,10 @@ class Login extends React.Component {
     }
     //setToken to the state of the application
     //then set token to the browser
-    //This needs to be checked for proper use. I blieve the arguments passed to setItem are
+    //This needs to be checked for proper use. I believe the arguments passed to setItem are
     //named imporperly for JWT auth.
-    setToken(result) {
-        sessionStorage.setItem('Authorization', result.token)
+    setToken(token) {
+        sessionStorage.setItem('Authorization', token)
     }
 
     handleSubmit(event) {
@@ -42,9 +44,10 @@ class Login extends React.Component {
                 body: JSON.stringify(this.state)
             })
             .then(response => response.json())
-            .then(result => this.setToken(result))
-
-            //.then(this.props.history.push('/gardin'))
+            .then(response => this.setState({token: response}))
+            .then(response => this.setToken(this.state.token))
+            .then(response => this.props.history.push('/profile'))
+            .catch(error => this.setState({errorMessage: 'Login Invalid'}))
     }
 
     render(){

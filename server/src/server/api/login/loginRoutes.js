@@ -1,6 +1,6 @@
-var loginRouter = require("express").Router();
-var controller = require("./loginController");
-var verifyUser = require("./auth").verifyUser;
+const loginRouter = require("express").Router();
+const controller = require("./loginController");
+const verifyUser = require("../../auth/auth").verifyUser;
 
 //Login Root
 loginRouter

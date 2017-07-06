@@ -16,36 +16,34 @@ Goal: Set up JWT so it gives the user an access token that will be sent with all
 */
 "use strict";
 require("colors");
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 //expressJWT is an express wrapper for jwt for ease of use
-var expressJwt = require("express-jwt");
-var config = require("../config/config");
+const expressJwt = require("express-jwt");
+const config = require("../config/config");
 
 //use of expressJwt!
-var checkToken = expressJwt({ secret: config.secrets.jwt });
+const checkToken = expressJwt({ secret: config.secrets.jwt });
 //grab user Model and create an instance of it
-var User = require("../api/user/userModel");
+const User = require("../api/user/userModel");
 
-exports.decodeToken = () => {
-  return (req, res, next) => {
-    if (req.query && req.query.hasOwnProperty("access_token")) {
-      req.headers.authorization = "Bearer " + req.query.access_token;
-    }
-    //Check header if there is a token verify it if not pass an error
-    checkToken(req, res, next);
-  };
-};
+exports.decodeToken = (req, res, next) => {
+  console.log('DECODING....')
+  req.token = req.get('Authorization')
 
-exports.getUser = () => {
-  return (req, res, next) => {
-    //Grab entire user object!
+  //Check header if there is a token verify it if not pass an error
+  checkToken(req, res, next);
+}
+
+exports.getUser = (req, res, next) => {
+  console.log('Getting user')
     User.findById(req.user._id).then(
       function(user) {
         if (!user) {
           res.status(401).send("Unauthorized");
         } else {
           req.user = user;
+          console.log(JSON.stringify(req.user))
           next();
         }
       },
@@ -53,13 +51,12 @@ exports.getUser = () => {
         next(err);
       }
     );
-  };
 };
 
 exports.verifyUser = (req, res) => {
   return (req, res, next) => {
-    var username = req.body.username;
-    var password = req.body.password;
+    const username = req.body.username;
+    const password = req.body.password;
 
     //verify username and password were passed in
 
@@ -74,7 +71,7 @@ exports.verifyUser = (req, res) => {
 
     User.findOne({ username: username }).then(user => {
       if (!user) {
-        res.status(401).send("No user by that username");
+        res.status(401).send('No user by that Username');
       } else {
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
         if (!user.authenticate(password)) {
@@ -99,9 +96,9 @@ exports.signToken = id => {
 };
 
 /*
-var user = { _id: "5941a507e2ce213728813188" };
-var token = jwt.sign(user, "secret");
-var user = jwt.verify(token, "secret");
+const user = { _id: "5941a507e2ce213728813188" };
+const token = jwt.sign(user, "secret");
+const user = jwt.verify(token, "secret");
 
 //Test of Sign and Verify!
 console.log(`This is the token:
