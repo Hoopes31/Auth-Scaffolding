@@ -16,7 +16,16 @@ Put it to use!
  PORT = 3001
  SECRET = 'YOUR_SECRET'
  ```
+ * DB SETUP: Navigate to the config folder and adjust your environment files to match your db settings.
+ Default is set to test.
+
+ ```javascript
+ db: {
+     url: "enter your mongo db name here"
+ }
+ ```
+
  * SERVER START: Navigate to server folder and type: 'npm start'
  * CLIENT START: Navigate to client folder and type: 'yarn start'
 
-Build with the help of Scott Moss' Lynda Tut! :+1:
+Built with the help of Scott Moss' Lynda Tut! :+1:

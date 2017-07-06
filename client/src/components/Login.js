@@ -13,11 +13,14 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            token: '',
             errorMessage: ''
         }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    setToken(token) {
+        sessionStorage.setItem('Authorization', token)
     }
 
     handleChange(event) {
@@ -29,9 +32,6 @@ class Login extends React.Component {
     //then set token to the browser
     //This needs to be checked for proper use. I believe the arguments passed to setItem are
     //named imporperly for JWT auth.
-    setToken(token) {
-        sessionStorage.setItem('Authorization', token)
-    }
 
     handleSubmit(event) {
         event.preventDefault()
@@ -41,8 +41,7 @@ class Login extends React.Component {
 
             fetch('/api/login', setHeader('POST', token, body))
             .then(response => response.json())
-            .then(response => this.setState({token: response}))
-            .then(response => this.setToken(this.state.token))
+            .then(response => this.setToken(response.token))
             .then(response => this.props.history.push('/profile'))
             .catch(error => this.setState({errorMessage: 'Login Invalid'}))
     }

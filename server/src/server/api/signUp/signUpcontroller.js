@@ -17,19 +17,16 @@ exports.createUser = (req, res) => {
 
   //save to mongo db
   newUser.save(function(err, newUser) {
-    if (err) return console.error(err);
-
-    //check to make sure user was created in console
-    //delete later
-
-    console.log(JSON.stringify(newUser));
-    var token = signToken(user._id);
-    res.json({ token: token });
+    if (err) {
+      return res.json({ err: err.message})
+    }
+    else {
+      var token = signToken(newUser._id);
+      return res.json({ token: token });
+    }  
   });
-
-  res.send(`Thanks for creating a profile`);
 };
 
 exports.root = (req, res) => {
-  res.sendFile("/", { root: "./src/client/" });
+  res.send('Sign Up Root');
 };

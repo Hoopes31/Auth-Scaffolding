@@ -1,4 +1,5 @@
 import React from 'react'
+import setHeader from './shared/setHeader'
 
 class SignUp extends React.Component {
     constructor(){
@@ -17,56 +18,57 @@ class SignUp extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    setToken(result) {
+        sessionStorage.setItem('Authorization', result)
+    }
+
     handleChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
         })
     }
+
     handleSubmit = (event) => {
         event.preventDefault()
         if(!this.validateForm()) {
         }
-        else { 
-            fetch('/api/signUp', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+        else {
+            const body = JSON.stringify({
                     username: this.state.username,
                     firstName: this.state.firstName,
                     lastName: this.state.lastName,
                     email: this.state.email,
                     password: this.state.password,
-                })
             })
+
+            fetch('/api/signUp', setHeader('POST', '', body))
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(response => {
+                //if error send error to client else set token
+                if (!response.err) {
+                    this.setToken(response.token)
+                    this.props.history.push('/profile')
+                }
+                else {
+                    this.setState({errorMessage: response.err})
+                }
+            })
+            .catch(err => console.log('Error hit'))
         }
     }
-    setToken(result) {
-        this.setState({
-            authToken: result
-        })
-    }
+
     validateForm () {
-
-        //build username validator
-        console.log('Validating')         
-
+        //clear error message & set custom password validation
+        this.setState({errorMessage: ''})
         if(this.state.password.length <= 8) {
-            console.log('password is too short')
-            this.setState({errorMessage: 'password is too short'})
+            this.setState({errorMessage: 'Password must be greater than 7 characters'})
             return false
         }
         else if (this.state.password !== this.state.passwordConfirm) {
-            console.log('passwords don\'t match')
-            this.setState({errorMessage: 'passwords do not match'})
+            this.setState({errorMessage: 'Passwords do not match'})
             return false
         }
         else {
-            console.log('passed validation')
             return true
         }
     }

@@ -35,8 +35,6 @@ var UserSchema = new Schema({
 
 UserSchema.pre("save", function(next) {
   //before saving a password we need to hash + salt
-  //for security
-
   if (!this.isModified("password")) return next();
 
   this.password = this.encryptPassword(this.password);
@@ -58,4 +56,19 @@ UserSchema.methods = {
     }
   }
 };
+
+UserSchema.pre("save", function(next, done) {
+  const User = mongoose.model('User', UserSchema)
+  User.findOne({username: this.username}, function(err, result) {
+    if(err) {
+      done(err)
+    }
+    else if (result){
+      done(new Error("Username is already in use"))
+    }
+    else {
+      next()
+    }
+  })
+})
 module.exports = mongoose.model("users", UserSchema);
