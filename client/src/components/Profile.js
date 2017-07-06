@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import setHeader from './shared/setHeader'
 
 class Profile extends Component {
     constructor(){
@@ -13,18 +14,10 @@ class Profile extends Component {
     //Send Auth Token back to server
     componentDidMount(){
 
-        //Abstract out Later
-        const payload = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': sessionStorage.getItem('Authorization')
-            },
-        }       
-
+        const token = sessionStorage.getItem('Authorization')
+    
         //Make fetch call with payload Object
-        fetch('/api/profile', payload)
+        fetch('/api/profile', setHeader('GET', token))
         .then(response => response.json)
         .then(response => console.log('Do something with response data'))
         .catch(err => console.log(err))

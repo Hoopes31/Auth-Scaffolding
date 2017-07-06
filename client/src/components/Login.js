@@ -1,4 +1,5 @@
 import React from 'react'
+import setHeader from './shared/setHeader'
 
 //Input fields: DONE
 //Validation: DONE
@@ -34,15 +35,11 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault()
-            fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                mode: 'cors',
-                body: JSON.stringify(this.state)
-            })
+
+            const token = this.state.token
+            const body = JSON.stringify(this.state)
+
+            fetch('/api/login', setHeader('POST', token, body))
             .then(response => response.json())
             .then(response => this.setState({token: response}))
             .then(response => this.setToken(this.state.token))
