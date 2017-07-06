@@ -12,5 +12,5 @@ exports.root = (req, res) => {
 
 exports.login = (req, res, next) => {
   const token = `Bearer ${signToken(req.user._id)}`;
-  return res.json(token)
+  return res.json({token: token})
 };
