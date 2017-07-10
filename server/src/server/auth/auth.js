@@ -15,23 +15,18 @@ const User = require("../api/user/userModel");
 const checkToken = expressJwt({ secret: config.secrets.jwt });
 
 exports.decodeToken = (req, res, next) => {
-  console.log('DECODING....')
   req.token = req.get('Authorization')
-  console.log(req.token)
   //Check header if there is a token verify it if not pass an error
   checkToken(req, res, next)
 }
 
 exports.getUser = (req, res, next) => {
-  console.log(req.user)
-
     User.findById(req.user._id).then(
       function(user) {
         if (!user) {
           res.status(401).send("Unauthorized");
         } else {
           req.user = user;
-          console.log(JSON.stringify(req.user))
           next();
         }
       },
@@ -82,18 +77,3 @@ exports.signToken = id => {
     expiresIn: config.expireTime
   });
 };
-
-/*
-const user = { _id: "5941a507e2ce213728813188" };
-const token = jwt.sign(user, "secret");
-const user = jwt.verify(token, "secret");
-
-//Test of Sign and Verify!
-console.log(`This is the token:
-${token.blue}
-This is the user:
-${JSON.stringify(user).yellow}`);
-
-//Cool!
-
-*/

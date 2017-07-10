@@ -6,6 +6,7 @@ class Profile extends Component {
     constructor(){
         super()
         this.state = {
+            data: ''
         }
 
     //Hard bind clearStorage to this object    
@@ -18,8 +19,8 @@ class Profile extends Component {
     
         //Make fetch call with payload Object
         fetch('/api/profile', setHeader('GET', token))
-        .then(response => response.json)
-        .then(response => console.log('Do something with response data'))
+        .then(response => response.json())
+        .then(response => this.setState({data: response.user}))
         .catch(err => console.log(err))
     }
 
@@ -31,7 +32,8 @@ class Profile extends Component {
         return(
             <div>
                 <Link to='/' onClick={this.clearStorage}>Logout</Link>
-                <h1>Profile Page</h1>
+                <h1>Welcome to the Profile Page</h1>
+                <h2>Happy Hacking, {this.state.data.firstName}.</h2>
             </div>
             )
     }
