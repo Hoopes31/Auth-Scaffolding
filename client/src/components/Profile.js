@@ -12,7 +12,7 @@ class Profile extends Component {
     this.clearStorage = this.clearStorage.bind(this)
     }
     //Send Auth Token back to server
-    componentDidMount(){
+    componentWillMount(){
 
         const token = sessionStorage.getItem('Authorization')
     

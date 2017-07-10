@@ -1,19 +1,6 @@
 //Do all authentication work here
 //Assignment, Middleware, Checking All here
 
-/*
-
-Goal: Set up JWT so it gives the user an access token that will be sent with all logged in requests. 
-
-1. This is normally saved in the users authorization header
-
-2. This must be readable by your system
-
-3. Your system must accept the token first, then pass data
-
-4. The token must close after LOGOUT or TIMEOUT
-
-*/
 "use strict";
 require("colors");
 const jwt = require("jsonwebtoken");
@@ -23,20 +10,21 @@ const expressJwt = require("express-jwt");
 const config = require("../config/config");
 
 //use of expressJwt!
-const checkToken = expressJwt({ secret: config.secrets.jwt });
 //grab user Model and create an instance of it
 const User = require("../api/user/userModel");
+const checkToken = expressJwt({ secret: config.secrets.jwt });
 
 exports.decodeToken = (req, res, next) => {
   console.log('DECODING....')
   req.token = req.get('Authorization')
-
+  console.log(req.token)
   //Check header if there is a token verify it if not pass an error
-  checkToken(req, res, next);
+  checkToken(req, res, next)
 }
 
 exports.getUser = (req, res, next) => {
-  console.log('Getting user')
+  console.log(req.user)
+
     User.findById(req.user._id).then(
       function(user) {
         if (!user) {

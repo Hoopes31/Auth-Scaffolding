@@ -11,15 +11,15 @@ class SignUp extends React.Component {
             email: '',
             password: '',
             passwordConfirm: '',
-            authToken: '',
+            token: '',
             errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
-    setToken(result) {
-        sessionStorage.setItem('Authorization', result)
+    setToken(token) {
+        sessionStorage.setItem('Authorization', token)
     }
 
     handleChange = (event) => {
@@ -44,15 +44,14 @@ class SignUp extends React.Component {
             fetch('/api/signUp', setHeader('POST', '', body))
             .then(response => response.json())
             .then(response => {
-                //if error send error to client else set token
                 if (!response.err) {
                     this.setToken(response.token)
-                    this.props.history.push('/profile')
                 }
                 else {
                     this.setState({errorMessage: response.err})
                 }
             })
+            .then(this.props.history.push('/profile'))
             .catch(err => console.log('Error hit'))
         }
     }
@@ -60,7 +59,7 @@ class SignUp extends React.Component {
     validateForm () {
         //clear error message & set custom password validation
         this.setState({errorMessage: ''})
-        if(this.state.password.length <= 8) {
+        if(this.state.password.length < 8) {
             this.setState({errorMessage: 'Password must be greater than 8 characters'})
             return false
         }

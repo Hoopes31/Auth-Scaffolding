@@ -36,10 +36,9 @@ class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault()
 
-            const token = this.state.token
             const body = JSON.stringify(this.state)
 
-            fetch('/api/login', setHeader('POST', token, body))
+            fetch('/api/login', setHeader('POST', '', body))
             .then(response => response.json())
             .then(response => this.setToken(response.token))
             .then(response => this.props.history.push('/profile'))
