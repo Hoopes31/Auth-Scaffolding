@@ -20,7 +20,7 @@ class Login extends React.Component {
     }
 
     setToken(token) {
-        sessionStorage.setItem('Authorization', token)
+        localStorage.setItem('Authorization', token)
     }
 
     handleChange(event) {

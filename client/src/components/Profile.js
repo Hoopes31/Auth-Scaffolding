@@ -15,7 +15,7 @@ class Profile extends Component {
     //Send Auth Token back to server
     componentWillMount(){
 
-        const token = sessionStorage.getItem('Authorization')
+        const token = localStorage.getItem('Authorization')
 
         //Make fetch call with payload Object
         fetch('/api/profile', setHeader('GET', token))
@@ -25,7 +25,7 @@ class Profile extends Component {
     }
 
     clearStorage(){
-        sessionStorage.removeItem('Authorization')
+        localStorage.removeItem('Authorization')
     }
 
     render(){
