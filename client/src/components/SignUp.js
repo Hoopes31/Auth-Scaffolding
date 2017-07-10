@@ -61,7 +61,7 @@ class SignUp extends React.Component {
         //clear error message & set custom password validation
         this.setState({errorMessage: ''})
         if(this.state.password.length <= 8) {
-            this.setState({errorMessage: 'Password must be greater than 7 characters'})
+            this.setState({errorMessage: 'Password must be greater than 8 characters'})
             return false
         }
         else if (this.state.password !== this.state.passwordConfirm) {
