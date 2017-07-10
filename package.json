@@ -1,0 +1,24 @@
+{
+  "name": "auth-scaffolding",
+  "version": "1.0.0",
+  "description": "base project for client/server",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm start --prefix ./client\" \"npm start --prefix ./server \"  "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoopes31/Auth-Scaffolding.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoopes31/Auth-Scaffolding/issues"
+  },
+  "homepage": "https://github.com/Hoopes31/Auth-Scaffolding#readme"
+}
