@@ -11,7 +11,6 @@ class SignUp extends React.Component {
             email: '',
             password: '',
             passwordConfirm: '',
-            token: '',
             errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -46,13 +45,14 @@ class SignUp extends React.Component {
             .then(response => {
                 if (!response.err) {
                     this.setToken(response.token)
+                    return response.token
                 }
                 else {
-                    this.setState({errorMessage: response.err})
+                    return this.setState({errorMessage: response.err})
                 }
             })
-            .then(this.props.history.push('/profile'))
-            .catch(err => console.log('Error hit'))
+            .then(response => {this.props.history.push('/profile')})
+            .catch(error => this.setState({errorMessage: error}))
         }
     }
 

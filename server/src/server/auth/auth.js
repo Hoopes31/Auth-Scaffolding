@@ -12,11 +12,10 @@ const config = require("../config/config");
 //use of expressJwt!
 //grab user Model and create an instance of it
 const User = require("../api/user/userModel");
-const checkToken = expressJwt({ secret: config.secrets.jwt });
+const checkToken = expressJwt({ secret: config.secrets.jwt })
 
 exports.decodeToken = (req, res, next) => {
   req.token = req.get('Authorization')
-  //Check header if there is a token verify it if not pass an error
   checkToken(req, res, next)
 }
 

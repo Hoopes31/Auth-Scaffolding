@@ -6,9 +6,9 @@ import Profile from './components/Profile'
 
 const Router = () => (
     <Switch>
-        <Route exact path="/" component={Login} />
+        <Route exact path="/" component={SignUp} />
         <Route path="/profile" component={Profile} />
-        <Route path="/signUp" component={SignUp} />
+        <Route path="/login" component={Login} />
     </Switch>
 )
 
