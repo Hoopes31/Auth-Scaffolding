@@ -6,14 +6,14 @@ class Profile extends Component {
     constructor(){
         super()
         this.state = {
-            data: ''
+            data: []
         }
 
     //Hard bind clearStorage to this object    
     this.clearStorage = this.clearStorage.bind(this)
     }
     //Send Auth Token back to server
-    componentWillMount(){
+    componentDidMount(){
 
         const token = localStorage.getItem('Authorization')
 
