@@ -47,8 +47,9 @@ class Login extends React.Component {
     }
 
     render(){
-        return(<Row className="Login">
-                <Col xs={10} xsOffset={1}>
+        return(
+        <Row className="Login">
+            <Col xs={10} xsOffset={1}>
                 <Form onSubmit={this.handleSubmit}>
                     <h1>Login</h1>
                     <hr />
@@ -59,7 +60,7 @@ class Login extends React.Component {
                             placeholder='Username'
                             required 
                             onChange={this.handleChange}/>
-                            <br />
+                        <br />
                         <FormControl 
                             id='password' 
                             type='password' 
@@ -67,12 +68,13 @@ class Login extends React.Component {
                             required 
                             onChange={this.handleChange}/>
                             <div id='errorMessage'>{this.state.errorMessage}</div>
-                            <br />
+                        <br />
                         <Button bsStyle="primary" type='submit'>Login</Button>
                     </Col>
-                    </Form>
-                </Col>
-            </Row>)
+                </Form>
+            </Col>
+        </Row>
+    )
     }
 }
 
