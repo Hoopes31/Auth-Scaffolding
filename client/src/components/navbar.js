@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 import {Row, Navbar,Nav,NavItem} from 'react-bootstrap'
 
 export default class SiteNavbar extends Component{
+  constructor(){
+    super();
+    this.state = {isLoggedin: false};
+  }
     render(){
         return(<Row>
         <Navbar inverse collapseOnSelect>

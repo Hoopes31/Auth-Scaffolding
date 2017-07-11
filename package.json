@@ -4,7 +4,9 @@
   "description": "base project for client/server",
   "main": "index.js",
   "dependencies": {
-    "concurrently": "^1.1.2"
+    "bootstrap-sass": "^3.3.7",
+    "concurrently": "^1.1.2",
+    "sass-loader": "^6.0.6"
   },
   "devDependencies": {},
   "scripts": {
