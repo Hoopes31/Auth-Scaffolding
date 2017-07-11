@@ -1,5 +1,6 @@
 import React from 'react'
 import setHeader from './shared/setHeader'
+import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
 
 //Input fields: DONE
 //Validation: DONE
@@ -46,29 +47,32 @@ class Login extends React.Component {
     }
 
     render(){
-        return(
-            <div className='Login'>
-                <form onSubmit={this.handleSubmit}>
-                <h1>Login</h1>
-                    <input 
-                        id='username' 
-                        type='text' 
-                        placeholder='Username'
-                        required 
-                        onChange={this.handleChange}/>
-                        <input 
-                        id='password' 
-                        type='password' 
-                        placeholder='Password'
-                        required 
-                        onChange={this.handleChange}/>
-                        <div id='errorMessage'>{this.state.errorMessage}</div>
-                        <button
-                        type='submit'>
-                        Login</button>
-                    </form>
-            </div>
-        )
+        return(<Row className="Login">
+                <Col xs={10} xsOffset={1}>
+                <Form onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
+                    <hr />
+                    <Col xs={10} xsOffset={1}>
+                        <FormControl 
+                            id='username' 
+                            type='text' 
+                            placeholder='Username'
+                            required 
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='password' 
+                            type='password' 
+                            placeholder='Password'
+                            required 
+                            onChange={this.handleChange}/>
+                            <div id='errorMessage'>{this.state.errorMessage}</div>
+                            <br />
+                        <Button bsStyle="primary" type='submit'>Login</Button>
+                    </Col>
+                    </Form>
+                </Col>
+            </Row>)
     }
 }
 

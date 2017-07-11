@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import setHeader from './shared/setHeader'
-
+import {Col, Row} from 'react-bootstrap';
 class Profile extends Component {
     constructor(){
         super()
@@ -29,13 +28,12 @@ class Profile extends Component {
     }
 
     render(){
-        return(
-            <div>
-                <Link to='/' onClick={this.clearStorage}>Logout</Link>
-                <h1>Welcome to the Profile Page</h1>
-                <h2>Happy Hacking, {this.state.data.firstName}.</h2>
-            </div>
-            )
+        return(<Row>
+                    <Col>
+                        <h1>Welcome to the Profile Page</h1>
+                        <h2>Happy Hacking, {this.state.data.firstName}.</h2>
+                    </Col>
+                </Row>)
     }
 }
 
