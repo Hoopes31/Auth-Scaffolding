@@ -6,9 +6,11 @@
   "dependencies": {
     "concurrently": "^1.1.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^20.0.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "concurrently \"npm start --prefix ./client\" \"npm start --prefix ./server \"  "
   },
   "repository": {
