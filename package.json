@@ -4,13 +4,14 @@
   "description": "base project for client/server",
   "main": "index.js",
   "dependencies": {
-    "concurrently": "^1.1.2"
+    "concurrently": "^3.5.0"
   },
   "devDependencies": {
-    "jest": "^20.0.4"
+    "jest": "^20.0.4",
+    "supertest-as-promised": "^4.0.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest app.test.js",
     "start": "concurrently \"npm start --prefix ./client\" \"npm start --prefix ./server \"  "
   },
   "repository": {

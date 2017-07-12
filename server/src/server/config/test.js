@@ -1,6 +1,6 @@
 module.exports = {
-  db: {
-    url: "development"
+    db: {
+    url: "testing"
   },
   logging: true,
   secrets: {

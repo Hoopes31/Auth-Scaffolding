@@ -7,7 +7,7 @@ const signToken = require("../../auth/auth").signToken;
 //Verification && Tokenization Middleware here ---->
 
 exports.root = (req, res) => {
-  res.sendFile("/", { root: "./src/client/login/" });
+  res.status(200).send('Login Root');
 };
 
 exports.login = (req, res, next) => {
