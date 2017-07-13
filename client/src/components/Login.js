@@ -1,7 +1,6 @@
 import React from 'react'
-import setHeader from './shared/setHeader'
 import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
-
+import { withRouter } from 'react-router'
 //Input fields: DONE
 //Validation: DONE
 //Hash Salt Capability: DONE BACKEND AUTH
@@ -9,6 +8,7 @@ import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
 //Redirect to Profile: DONE
 
 class Login extends React.Component {
+    
     constructor(){
         super()
         this.state = {
@@ -16,12 +16,8 @@ class Login extends React.Component {
             password: '',
             errorMessage: ''
         }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    setToken(token) {
-        localStorage.setItem('Authorization', token)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event) {
@@ -35,15 +31,15 @@ class Login extends React.Component {
     //named imporperly for JWT auth.
 
     handleSubmit(event) {
-        event.preventDefault()
-
-            const body = JSON.stringify(this.state)
-
-            fetch('/api/login', setHeader('POST', '', body))
-            .then(response => response.json())
-            .then(response => this.setToken(response.token))
-            .then(response => this.props.history.push('/profile'))
-            .catch(error => this.setState({errorMessage: 'Login Invalid'}))
+        event.preventDefault();
+        this.props.login(JSON.stringify(this.state))
+            .then((success) => {
+                if(success){
+                    this.props.history.push('/profile')
+                }else{
+                    this.setState({errorMessage: 'Login Invalid'})
+                }
+            })
     }
 
     render(){
@@ -69,7 +65,7 @@ class Login extends React.Component {
                             onChange={this.handleChange}/>
                             <div id='errorMessage'>{this.state.errorMessage}</div>
                         <br />
-                        <Button bsStyle="primary" type='submit'>Login</Button>
+                        <Button type='submit'>Login</Button>
                     </Col>
                 </Form>
             </Col>
@@ -78,4 +74,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+export default withRouter(Login)

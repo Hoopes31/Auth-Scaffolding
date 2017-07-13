@@ -15,7 +15,6 @@ class Profile extends Component {
     componentDidMount(){
 
         const token = localStorage.getItem('Authorization')
-
         //Make fetch call with payload Object
         fetch('/api/profile', setHeader('GET', token))
         .then(response => response.json())
