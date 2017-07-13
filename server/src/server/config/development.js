@@ -1,6 +1,6 @@
 module.exports = {
   db: {
-    url: "test"
+    url: "development"
   },
   logging: true,
   seed: true,
