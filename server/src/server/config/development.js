@@ -3,6 +3,7 @@ module.exports = {
     url: "development"
   },
   logging: true,
+  seed: true,
   secrets: {
     jwt: "process.env.SECRET"
   },
