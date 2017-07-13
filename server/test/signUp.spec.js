@@ -17,10 +17,10 @@ chai.use(chaiHttp)
 
 //User for: CREATE_USER && DUPLICATE TEST
 let user = {
-    username: "Agent",
-    firstName: "Archer",
-    lastName: "Sterling",
-    email: "Archer@test.com",
+    username: "Agent_007",
+    firstName: "James",
+    lastName: "Bond",
+    email: "JamesBond@test.com",
     password: "testing123"
 }
 
@@ -42,7 +42,7 @@ describe('/POST Sign Up: Create User Profile', () => {
 
 //POST: DUPLICATE ACCOUNT
 
-describe('/Post SignUp:', () => {
+describe('/POST SignUp:', () => {
     it('DUPLICATE_ACCOUNTS', (done) => {
         chai.request(server)
             .post('/api/signUp')
@@ -58,7 +58,7 @@ describe('/Post SignUp:', () => {
 
 //POST: MISSING_FIELDS   
 //Wipe users after each done for following tests
-describe('Users', () => {
+describe('Wipe Users...', () => {
     beforeEach((done) => {
         User.remove({}, (err) => {
             done()

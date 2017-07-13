@@ -13,10 +13,11 @@ let server = require('../src/index')
 let should = chai.should()
 
 chai.use(chaiHttp)
-//Create User
-//POST: LOGIN FAIL
+
 //POST: LOGIN SUCCESS
-//Wipe User
+describe('/POST Login:')
+//POST: LOGIN FAIL
+
 describe('/GET SignUp', () => {
     it('SIGN_UP_ROOT', (done) => {
         chai.request(server)
