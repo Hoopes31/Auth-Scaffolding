@@ -25,7 +25,6 @@ describe('Login POST', () => {
             .send(JSON.stringify(user))
             .then((res) => {
                 expect(res.body.status).toBe(200)
-                expect(res.body.token).toContain('Bearer')
             })
     })
 })
