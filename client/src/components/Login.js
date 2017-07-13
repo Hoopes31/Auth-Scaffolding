@@ -1,11 +1,6 @@
 import React from 'react'
 import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
 import { withRouter } from 'react-router'
-//Input fields: DONE
-//Validation: DONE
-//Hash Salt Capability: DONE BACKEND AUTH
-//Local Storage of Token Save: DONE
-//Redirect to Profile: DONE
 
 class Login extends React.Component {
     
@@ -25,13 +20,11 @@ class Login extends React.Component {
             [event.target.id]: event.target.value
         })
     }
-    //setToken to the state of the application
-    //then set token to the browser
-    //This needs to be checked for proper use. I believe the arguments passed to setItem are
-    //named imporperly for JWT auth.
 
     handleSubmit(event) {
         event.preventDefault();
+        // handles the returned promise from the router's login function, 
+        // routes to profile on success, sets the error message on failure.
         this.props.login(JSON.stringify(this.state))
             .then((success) => {
                 if(success){
