@@ -14,19 +14,6 @@ let server = require('../src/index')
 let should = chai.should()
 
 chai.use(chaiHttp)
-    
-//Sign Up Root 200
-describe('/GET SignUp', () => {
-    it('SIGN_UP_ROOT', (done) => {
-        chai.request(server)
-            .get('/api/signUp')
-            .end((err, res) => {
-                res.should.have.status(200)
-                res.body.should.have.property('token')
-                done()
-            })
-    })
-})
 
 //User for: CREATE_USER && DUPLICATE TEST
 let user = {
@@ -69,7 +56,7 @@ describe('/Post SignUp:', () => {
     })
 })
 
-//POST MISSING_FIELDS   
+//POST: MISSING_FIELDS   
 //Wipe users after each done for following tests
 describe('Users', () => {
     beforeEach((done) => {
@@ -121,7 +108,7 @@ describe('Users', () => {
             },
         ]
 
-//MAP BAD_USERS
+//mapping bad users and pushing err message for each unit test
         badUsers.map(user => {
             describe('/POST Sign Up Should FAIL:', () => {
                 it(`DENY_BAD_USER: ${user.err}`, (done) => {

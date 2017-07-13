@@ -3,9 +3,7 @@ const controller = require("./loginController");
 const verifyUser = require("../../auth/auth").verifyUser;
 
 //Login Root
-loginRouter
-  .route("/")
-  .get(controller.root)
+loginRouter.route("/")
   .post(verifyUser(), controller.login);
 
 /*

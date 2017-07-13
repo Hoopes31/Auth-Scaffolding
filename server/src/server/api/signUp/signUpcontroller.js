@@ -1,10 +1,6 @@
 var _ = require("lodash");
 var signToken = require("../../auth/auth").signToken;
 
-exports.root = (req, res) => {
-  res.json({token: 'token stuff'})
-}
-
 exports.createUser = (req, res) => {
   //import model
   const User = require("../user/userModel");
