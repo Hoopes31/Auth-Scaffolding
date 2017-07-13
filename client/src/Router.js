@@ -6,6 +6,11 @@ import Profile from './components/Profile'
 
 const Router = () => (
     <Switch>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
         <Route exact path="/" component={SignUp} />
         <Route path="/profile" component={Profile} />
         <Route path="/login" component={Login} />
