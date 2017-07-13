@@ -83,7 +83,7 @@ class Router extends Component{
             <SiteNavbar logout={this.logout} isLoggedIn={this.state.isLoggedIn} />
             <Switch> 
                 <Route exact path="/" component={Landing}/>
-                <Route path="/signup" component={this.loggedOutOnly(<SignUp />, "/signup")} />
+                <Route path="/signup" component={this.loggedOutOnly(<SignUp checkForToken={this.checkForToken}/>, "/signup")} />
                 <Route path="/login" component={this.loggedOutOnly(<Login login = {this.login} />, "/login")} />
                 <Route path="/profile" component={this.protect(<Profile />)} />
                 <Route component={NotFound} />
