@@ -7,6 +7,7 @@ import Landing from './components/Landing'
 import SiteNavbar from './components/navbar'
 import Unauthorized from './components/Errors/Unauthorized'
 import LoggedOutOnly from './components/Errors/LoggedOutOnly'
+import NotFound from './components/Errors/NotFound'
 import setHeader from './components/shared/setHeader'
 import {Grid} from 'react-bootstrap'  
 class Router extends Component{
@@ -85,6 +86,7 @@ class Router extends Component{
                 <Route path="/signup" component={this.loggedOutOnly(<SignUp />, "/signup")} />
                 <Route path="/login" component={this.loggedOutOnly(<Login login = {this.login} />, "/login")} />
                 <Route path="/profile" component={this.protect(<Profile />)} />
+                <Route component={NotFound} />
             </Switch>
         </Grid>
         )
