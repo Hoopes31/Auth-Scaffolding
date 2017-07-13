@@ -7,25 +7,21 @@ class Profile extends Component {
         this.state = {
             data: []
         }
-
-    //Hard bind clearStorage to this object    
-    this.clearStorage = this.clearStorage.bind(this)
+    this.fetchProfile() = this.fetchProfile.bind(this)
+    }
+    
+    componentDidMount(){
+        this.fetchProfile()
     }
     //Send Auth Token back to server
-    componentDidMount(){
-
+    fetchProfile(){
         const token = localStorage.getItem('Authorization')
         //Make fetch call with payload Object
         fetch('/api/profile', setHeader('GET', token))
-        .then(response => response.json())
-        .then(response => this.setState({data: response.user}))
-        .catch(err => console.log(err))
+            .then(response => response.json())
+            .then(response => this.setState({data: response.user}))
+            .catch(err => console.warn(err))
     }
-
-    clearStorage(){
-        localStorage.removeItem('Authorization')
-    }
-
     render(){
         return(<Row>
                     <Col>
