@@ -1,6 +1,6 @@
 import React from 'react'
 import setHeader from './shared/setHeader'
-
+import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
 class SignUp extends React.Component {
     constructor(){
         super()
@@ -74,51 +74,59 @@ class SignUp extends React.Component {
 
     render(){
     return(
-        <div className='SignUp'>               
-            <h1>Sign Up!</h1>
-            <form onSubmit={this.handleSubmit}>
-                    <input 
-                        id='username' 
-                        type='text' 
-                        placeholder='Username'
-                        required 
-                        onChange={this.handleChange}/>
-                    <input 
-                        id='firstName' 
-                        type='text' 
-                        placeholder='First Name' 
-                        required
-                        onChange={this.handleChange}/>
-                    <input 
-                        id='lastName' 
-                        type='text' 
-                        placeholder ='Last Name' 
-                        required
-                        onChange={this.handleChange}/>
-                    <input 
-                        id='email' 
-                        type='email' 
-                        placeholder='Email Address' 
-                        required
-                        onChange={this.handleChange}/>
-                    <input 
-                        id='password' 
-                        type='password' 
-                        placeholder ='Password' 
-                        required
-                        onChange={this.handleChange}/>
-                    <input 
-                        id='passwordConfirm' 
-                        type='password' 
-                        placeholder ='Password Confirm' 
-                        required
-                        onChange={this.handleChange}/>                                                
-                <button 
-                    type='submit'>
-                    Sign Up!</button>
-                <div id='errorMessage'>{this.state.errorMessage}</div>
-            </form>
-        </div>
+        <Row className='SignUp'>
+            <Col xs={10} xsOffset={1}>
+                <h1>Sign Up!</h1>
+                <Col xs={10} xsOffset={1}>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormControl 
+                            id='username' 
+                            type='text' 
+                            placeholder='Username'
+                            required 
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='firstName' 
+                            type='text' 
+                            placeholder='First Name' 
+                            required
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='lastName' 
+                            type='text' 
+                            placeholder ='Last Name' 
+                            required
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='email' 
+                            type='email' 
+                            placeholder='Email Address' 
+                            required
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='password' 
+                            type='password' 
+                            placeholder ='Password' 
+                            required
+                            onChange={this.handleChange}/>
+                            <br />
+                        <FormControl 
+                            id='passwordConfirm' 
+                            type='password' 
+                            placeholder ='Password Confirm' 
+                            required
+                            onChange={this.handleChange}/>
+                            <br />                                                
+                        <Button bsStyle="primary" type='submit'>Sign Up!</Button>
+                        <div id='errorMessage'>{this.state.errorMessage}</div>
+                </Form>
+                </Col>
+            </Col>
+        </Row>
         )
     }
 }

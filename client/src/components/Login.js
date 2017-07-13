@@ -1,6 +1,6 @@
 import React from 'react'
-import setHeader from './shared/setHeader'
-
+import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
+import { withRouter } from 'react-router'
 //Input fields: DONE
 //Validation: DONE
 //Hash Salt Capability: DONE BACKEND AUTH
@@ -8,6 +8,7 @@ import setHeader from './shared/setHeader'
 //Redirect to Profile: DONE
 
 class Login extends React.Component {
+    
     constructor(){
         super()
         this.state = {
@@ -15,12 +16,8 @@ class Login extends React.Component {
             password: '',
             errorMessage: ''
         }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    setToken(token) {
-        localStorage.setItem('Authorization', token)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event) {
@@ -34,42 +31,47 @@ class Login extends React.Component {
     //named imporperly for JWT auth.
 
     handleSubmit(event) {
-        event.preventDefault()
-
-            const body = JSON.stringify(this.state)
-
-            fetch('/api/login', setHeader('POST', '', body))
-            .then(response => response.json())
-            .then(response => this.setToken(response.token))
-            .then(response => this.props.history.push('/profile'))
-            .catch(error => this.setState({errorMessage: 'Login Invalid'}))
+        event.preventDefault();
+        this.props.login(JSON.stringify(this.state))
+            .then((success) => {
+                if(success){
+                    this.props.history.push('/profile')
+                }else{
+                    this.setState({errorMessage: 'Login Invalid'})
+                }
+            })
     }
 
     render(){
         return(
-            <div className='Login'>
-                <form onSubmit={this.handleSubmit}>
-                <h1>Login</h1>
-                    <input 
-                        id='username' 
-                        type='text' 
-                        placeholder='Username'
-                        required 
-                        onChange={this.handleChange}/>
-                        <input 
-                        id='password' 
-                        type='password' 
-                        placeholder='Password'
-                        required 
-                        onChange={this.handleChange}/>
-                        <div id='errorMessage'>{this.state.errorMessage}</div>
-                        <button
-                        type='submit'>
-                        Login</button>
-                    </form>
-            </div>
-        )
+        <Row className="Login">
+            <Col xs={10} xsOffset={1}>
+                <Form onSubmit={this.handleSubmit}>
+                    <h1>Login</h1>
+                    <hr />
+                    <Col xs={10} xsOffset={1}>
+                        <FormControl 
+                            id='username' 
+                            type='text' 
+                            placeholder='Username'
+                            required 
+                            onChange={this.handleChange}/>
+                        <br />
+                        <FormControl 
+                            id='password' 
+                            type='password' 
+                            placeholder='Password'
+                            required 
+                            onChange={this.handleChange}/>
+                            <div id='errorMessage'>{this.state.errorMessage}</div>
+                        <br />
+                        <Button type='submit'>Login</Button>
+                    </Col>
+                </Form>
+            </Col>
+        </Row>
+    )
     }
 }
 
-export default Login
+export default withRouter(Login)
