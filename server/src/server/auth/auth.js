@@ -44,8 +44,7 @@ exports.verifyUser = (req, res) => {
 
     if (!username || !password) {
       res.status(401).send("You need an account");
-      //return causes us to exit loop so you don't blow your shit up.
-      return;
+      res.end()
     }
 
     //check to see if user exisits in our db

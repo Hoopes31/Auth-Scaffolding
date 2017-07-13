@@ -1,8 +1,9 @@
 module.exports = {
   db: {
-    url: "development"
+    url: "test"
   },
   logging: true,
+  seed: true,
   secrets: {
     jwt: "process.env.SECRET"
   },

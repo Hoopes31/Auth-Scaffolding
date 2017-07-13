@@ -45,7 +45,7 @@ const createUsers = function(data) {
         .then(function(users){
             return _.merge({users: users}, data || {})
         })
-        .then(console.log('DB Seeeded'))
+        .then(response => {return 'DB Seeeded'})
 }
 
 cleanDB()
