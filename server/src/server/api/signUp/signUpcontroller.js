@@ -1,10 +1,6 @@
 var _ = require("lodash");
 var signToken = require("../../auth/auth").signToken;
 
-exports.root = (req, res) => {
-  res.json({token: 'token stuff'})
-}
-
 exports.createUser = (req, res) => {
   //import model
   const User = require("../user/userModel");
@@ -21,7 +17,7 @@ exports.createUser = (req, res) => {
   //save to mongo db
   newUser.save(function(err, newUser) {
     if (err) {
-      return res.json({ err: err.message})
+      return res.status(401).json({ err: err.message})
     }
     else {
       const token = `Bearer ${signToken(newUser._id)}`;

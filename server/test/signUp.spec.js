@@ -15,55 +15,113 @@ let should = chai.should()
 
 chai.use(chaiHttp)
 
-describe('Users', () => {
+//User for: CREATE_USER && DUPLICATE TEST
+let user = {
+    username: "Agent_007",
+    firstName: "James",
+    lastName: "Bond",
+    email: "JamesBond@test.com",
+    password: "testing123"
+}
+
+//POST: CREATE_USER
+describe('/POST Sign Up: Create User Profile', () => {
+    it('CREATE_USER && RETURN_TOKEN', (done) => {
+
+        chai.request(server)
+            .post('/api/signUp')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('token')
+                done()
+            })
+    })
+})
+
+//POST: DUPLICATE ACCOUNT
+
+describe('/POST SignUp:', () => {
+    it('DUPLICATE_ACCOUNTS', (done) => {
+        chai.request(server)
+            .post('/api/signUp')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(401)
+                res.body.should.not.have.property('token')
+                res.body.should.have.property('err')
+                done()
+            })
+    })
+})
+
+//POST: MISSING_FIELDS   
+//Wipe users after each done for following tests
+describe('Wipe Users...', () => {
     beforeEach((done) => {
         User.remove({}, (err) => {
             done()
         })
     })
-    describe('/GET SignUp', () => {
-        it('it should GET Sign Up Root', (done) => {
-            chai.request(server)
-                .get('/api/signUp')
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.should.have.property('token')
-                    done()
-                })
-        })
-    })
-    describe('/POST Sign Up: Create User Profile', () => {
-        it('it should POST Create a New User and Return a Token', (done) => {
-
-            let user = {
-                username: "Agent",
+  
+    let badUsers = [
+            {
+                username: null,
                 firstName: "Archer",
                 lastName: "Sterling",
                 email: "Archer@test.com",
-                password: "testing123"
-            }
+                password: "testing123",
+                err: "NO USERNAME"
+            },
+            {
+                username: "Agent",
+                firstName: null,
+                lastName: "Sterling",
+                email: "Archer@test.com",
+                password: "testing123",
+                err: "NO FIRST_NAME"
+            },
+                        {
+                username: "Agent",
+                firstName: "Archer",
+                lastName: null,
+                email: "Archer@test.com",
+                password: "testing123",
+                err: "NO LAST_NAME"
+            },
+            {
+                username: "Agent",
+                firstName: "Archer",
+                lastName: "Sterling",
+                email: null,
+                password: "testing123",
+                err: "NO EMAIL"
+            },
+            {
+                username: "Agent",
+                firstName: "Archer",
+                lastName: "Sterling",
+                email: "Archer@gest.com",
+                password: null,
+                err: "NO PASSWORD"
+            },
+        ]
 
-            chai.request(server)
-                .post('/api/signUp')
-                .send(user)
-                .end((err, res) => {
-                    res.should.have.status(200)
-                    res.body.should.be.a('object')
-                    res.body.should.have.property('token')
-                    done()
-                })
+//mapping bad users and pushing err message for each unit test
+        badUsers.map(user => {
+            describe('/POST Sign Up Should FAIL:', () => {
+                it(`DENY_BAD_USER: ${user.err}`, (done) => {
+                    chai.request(server)
+                        .post('/api/signUp')
+                        .send(user)
+                        .end((err, res) => {
+                            res.should.have.status(401)
+                            res.body.should.not.have.property('token')
+                            res.body.should.have.property('err')
+                            done()
+                        })
+            })
         })
     })
-    describe('/POST Sign Up Should FAIL:', () => {
-
-        
-        it('should not allow Sign Up', () => {
-            chai.request(server)
-                .post(user)
-                .send((err, res) => {
-                    res.should.have.status(401)
-                })
-        })
-    })
-
 })

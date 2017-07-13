@@ -6,11 +6,11 @@ logger.log('Seeding Database')
 
 const users = [
     {
-        username: "testing123",
-        password: "testing123",
-        email: "email@email.com",
+        username: "Agent",
         firstName: "Archer",
         lastName: "Sterling",
+        email: "Archer@test.com",
+        password: "testing123"
     }
 ]
 
