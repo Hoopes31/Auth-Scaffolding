@@ -7,7 +7,7 @@ class Profile extends Component {
         this.state = {
             data: []
         }
-    this.fetchProfile() = this.fetchProfile.bind(this)
+    this.fetchProfile = this.fetchProfile.bind(this)
     }
     
     componentDidMount(){
