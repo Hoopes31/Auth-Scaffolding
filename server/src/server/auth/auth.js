@@ -43,7 +43,7 @@ exports.verifyUser = (req, res) => {
     //verify username and password were passed in
 
     if (!username || !password) {
-      res.status(400).send("You need an account");
+      res.status(401).send("You need an account");
       //return causes us to exit loop so you don't blow your shit up.
       return;
     }

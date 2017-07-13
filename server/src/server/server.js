@@ -6,16 +6,22 @@
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
+const config = require('./config/config')
+
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
+
+//Set Seed
+if(config.seed) {
+  require('./util/seed')
+}
 
 //Setup Route
 const api = require("./api/router");
 app.use("/api", api);
 
 //Setup Error Handling
-
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
     res.status(401).send("Invalid Token");
