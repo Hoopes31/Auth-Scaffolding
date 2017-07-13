@@ -8,8 +8,7 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai'],
 
         files: [
-            './server/tests*.spec.js',
-            './client/src/tests*.spec.js'
+            './client/src/tests/*.spec.js'
         ],
 
         reporters: ['progress'],
