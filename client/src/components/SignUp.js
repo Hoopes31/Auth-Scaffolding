@@ -1,6 +1,7 @@
 import React from 'react'
 import setHeader from './shared/setHeader'
 import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
+import {withRouter} from "react-router"
 class SignUp extends React.Component {
     constructor(){
         super()
@@ -15,6 +16,7 @@ class SignUp extends React.Component {
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.signUp = this.signUp.bind(this)
     }
 
     setToken(token) {
@@ -29,6 +31,9 @@ class SignUp extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
+        this.signUp()
+    }
+    signUp(){
         if(!this.validateForm()) {
         }
         else {
@@ -45,6 +50,7 @@ class SignUp extends React.Component {
             .then(response => {
                 if (!response.err) {
                     this.setToken(response.token)
+                    this.props.checkForToken()
                     return response.token
                 }
                 else {
@@ -55,7 +61,6 @@ class SignUp extends React.Component {
             .catch(error => this.setState({errorMessage: error}))
         }
     }
-
     validateForm () {
         //clear error message & set custom password validation
         this.setState({errorMessage: ''})
@@ -131,4 +136,4 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp
+export default withRouter(SignUp);

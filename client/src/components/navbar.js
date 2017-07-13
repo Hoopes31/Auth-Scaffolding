@@ -17,7 +17,7 @@ class SiteNavbar extends Component{
   render(){
     return(
     <Row>
-      <Navbar inverse collapseOnSelect>
+      <Navbar collapseOnSelect>
        <Navbar.Header>
         <Navbar.Brand>
           <Link to="/">Boilerplate</Link>
