@@ -12,22 +12,20 @@ let chai = require('chai')
 let chaiHttp = require('chai-http')
 let server = require('../src/index')
 let should = chai.should()
+let user = {
+        username: "Agent_007",
+        firstName: "James",
+        lastName: "Bond",
+        email: "JamesBond@test.com",
+        password: "testing123"
+    }
 
 chai.use(chaiHttp)
 
-//User for: CREATE_USER && DUPLICATE TEST
-let user = {
-    username: "Agent_007",
-    firstName: "James",
-    lastName: "Bond",
-    email: "JamesBond@test.com",
-    password: "testing123"
-}
-
 //POST: CREATE_USER
-describe('/POST Sign Up: Create User Profile', () => {
-    it('CREATE_USER && RETURN_TOKEN', (done) => {
+describe('SIGNUP: GOOD_USER', () => {
 
+    it('CREATE_USER && RETURN_TOKEN', (done) => {
         chai.request(server)
             .post('/api/signUp')
             .send(user)
@@ -42,13 +40,17 @@ describe('/POST Sign Up: Create User Profile', () => {
 
 //POST: DUPLICATE ACCOUNT
 
-describe('/POST SignUp:', () => {
+describe('SIGNUP: BAD_REQUEST', () => {
+    //Remove User After Test
+    after(function() {
+        User.find({"username":"Agent_007"}).remove().exec()
+    })
     it('DUPLICATE_ACCOUNTS', (done) => {
         chai.request(server)
             .post('/api/signUp')
             .send(user)
             .end((err, res) => {
-                res.should.have.status(401)
+                res.should.have.status(400)
                 res.body.should.not.have.property('token')
                 res.body.should.have.property('err')
                 done()
@@ -57,71 +59,63 @@ describe('/POST SignUp:', () => {
 })
 
 //POST: MISSING_FIELDS   
-//Wipe users after each done for following tests
-describe('Wipe Users...', () => {
-    beforeEach((done) => {
-        User.remove({}, (err) => {
-            done()
-        })
-    })
-  
-    let badUsers = [
-            {
-                username: null,
-                firstName: "Archer",
-                lastName: "Sterling",
-                email: "Archer@test.com",
-                password: "testing123",
-                err: "NO USERNAME"
-            },
-            {
-                username: "Agent",
-                firstName: null,
-                lastName: "Sterling",
-                email: "Archer@test.com",
-                password: "testing123",
-                err: "NO FIRST_NAME"
-            },
-                        {
-                username: "Agent",
-                firstName: "Archer",
-                lastName: null,
-                email: "Archer@test.com",
-                password: "testing123",
-                err: "NO LAST_NAME"
-            },
-            {
-                username: "Agent",
-                firstName: "Archer",
-                lastName: "Sterling",
-                email: null,
-                password: "testing123",
-                err: "NO EMAIL"
-            },
-            {
-                username: "Agent",
-                firstName: "Archer",
-                lastName: "Sterling",
-                email: "Archer@gest.com",
-                password: null,
-                err: "NO PASSWORD"
-            },
-        ]
+
+let badUsers = [
+        {
+            username: null,
+            firstName: "Archer",
+            lastName: "Sterling",
+            email: "Archer@test.com",
+            password: "testing123",
+            err: "NO USERNAME"
+        },
+        {
+            username: "Agent",
+            firstName: null,
+            lastName: "Sterling",
+            email: "Archer@test.com",
+            password: "testing123",
+            err: "NO FIRST_NAME"
+        },
+                    {
+            username: "Agent",
+            firstName: "Archer",
+            lastName: null,
+            email: "Archer@test.com",
+            password: "testing123",
+            err: "NO LAST_NAME"
+        },
+        {
+            username: "Agent",
+            firstName: "Archer",
+            lastName: "Sterling",
+            email: null,
+            password: "testing123",
+            err: "NO EMAIL"
+        },
+        {
+            username: "Agent",
+            firstName: "Archer",
+            lastName: "Sterling",
+            email: "Archer@gest.com",
+            password: null,
+            err: "NO PASSWORD"
+        },
+    ]
 
 //mapping bad users and pushing err message for each unit test
-        badUsers.map(user => {
-            describe('/POST Sign Up Should FAIL:', () => {
-                it(`DENY_BAD_USER: ${user.err}`, (done) => {
-                    chai.request(server)
-                        .post('/api/signUp')
-                        .send(user)
-                        .end((err, res) => {
-                            res.should.have.status(401)
-                            res.body.should.not.have.property('token')
-                            res.body.should.have.property('err')
-                            done()
-                        })
-            })
+    badUsers.map(user => {
+        describe('/SIGNUP_BAD_USER:', () => {
+            it(`DENY_BAD_USER: ${user.err}`, (done) => {
+                chai.request(server)
+                    .post('/api/signUp')
+                    .send(user)
+                    .end((err, res) => {
+                        res.should.have.status(400)
+                        res.body.should.not.have.property('token')
+                        res.body.should.have.property('err')
+                        done()
+                    })
         })
     })
 })

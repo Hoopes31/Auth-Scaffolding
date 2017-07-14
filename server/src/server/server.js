@@ -12,11 +12,6 @@ const config = require('./config/config')
 const middleware = require("./middleware/middleware");
 middleware(app);
 
-//Set Seed
-if(config.seed) {
-  require('./util/seed')
-}
-
 //Setup Route
 const api = require("./api/router");
 app.use("/api", api);
