@@ -43,7 +43,7 @@ exports.verifyUser = (req, res) => {
     //verify username and password were passed in
 
     if (!username || !password) {
-      res.status(401).send("You need an account");
+      res.status(404).send("You need an account");
       res.end()
     }
 
@@ -52,11 +52,11 @@ exports.verifyUser = (req, res) => {
 
     User.findOne({ username: username }).then(user => {
       if (!user) {
-        res.status(401).send('No user by that Username');
+        res.status(404).send('No user by that Username');
       } else {
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
         if (!user.authenticate(password)) {
-          res.status(401).send("That is the wrong password");
+          res.status(404).send("That is the wrong password");
         } else {
           //if all good attach req.user to user for further work on user.
           req.user = user;
