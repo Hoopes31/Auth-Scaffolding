@@ -1,22 +1,20 @@
 //set NODE_ENV
-
 process.env.NODE_ENV = 'test'
 
+//Require test dependencies
 const mongoose = require('mongoose')
 const User = require('../src/server/api/user/userModel')
 const _ = require('lodash')
-
-//Require test dependencies
-
-let chai = require('chai')
-let chaiHttp = require('chai-http')
-let server = require('../src/index')
-let should = chai.should()
+const chai = require('chai')
+const chaiHttp = require('chai-http')
+const server = require('../src/index')
+const should = chai.should()
 
 chai.use(chaiHttp)
 
 //POST: LOGIN SUCCESS
 describe('LOGIN: GOOD_USER:', () => {
+
     //Create User
     before(function() {
         let user = {
@@ -30,14 +28,15 @@ describe('LOGIN: GOOD_USER:', () => {
         _.assign(newUser, user)
         newUser.save()
     })
+
     //Wipe User
     after(function() {
         User.find({"username":"Agent"}).remove().exec()
     })
 
+    //Run Good User Test
     describe('TEST_GOOD_USER', () => {
         it('LOGIN_SUCCESS', (done) => {
-
             let userLogin = {
                 username: "Agent",
                 password: "testing123"
@@ -55,6 +54,7 @@ describe('LOGIN: GOOD_USER:', () => {
         })
     })
 })
+
 //POST: LOGIN FAIL
 describe('LOGIN: BAD_USER:', () => {
 

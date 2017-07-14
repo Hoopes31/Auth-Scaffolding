@@ -1,13 +1,11 @@
 
 //set the NODE_ENV to test
-
 process.env.NODE_ENV = 'test'
 
 const mongoose = require('mongoose')
 const User = require('../src/server/api/user/userModel')
 
 //Require test dependencies
-
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let server = require('../src/index')
@@ -39,8 +37,8 @@ describe('SIGNUP: GOOD_USER', () => {
 })
 
 //POST: DUPLICATE ACCOUNT
-
 describe('SIGNUP: BAD_REQUEST', () => {
+
     //Remove User After Test
     after(function() {
         User.find({"username":"Agent_007"}).remove().exec()
@@ -59,7 +57,6 @@ describe('SIGNUP: BAD_REQUEST', () => {
 })
 
 //POST: MISSING_FIELDS   
-
 let badUsers = [
         {
             username: null,
