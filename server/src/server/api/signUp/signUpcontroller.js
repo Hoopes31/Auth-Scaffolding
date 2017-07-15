@@ -17,11 +17,10 @@ exports.createUser = (req, res) => {
   //save to mongo db
   newUser.save(function(err, newUser) {
     if (err) {
-      return res.status(400).json({ err: err.message})
-    }
-    else {
+      return res.status(400).json({ err: err.message });
+    } else {
       const token = `Bearer ${signToken(newUser._id)}`;
       return res.status(200).json({ token: token });
-    }  
+    }
   });
 };

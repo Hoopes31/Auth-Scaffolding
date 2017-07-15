@@ -58,17 +58,15 @@ UserSchema.methods = {
 };
 
 UserSchema.pre("save", function(next, done) {
-  const User = mongoose.model('User', UserSchema)
-  User.findOne({username: this.username}, function(err, result) {
-    if(err) {
-      done(err)
+  const User = mongoose.model("User", UserSchema);
+  User.findOne({ username: this.username }, function(err, result) {
+    if (err) {
+      done(err);
+    } else if (result) {
+      done(new Error("Username is already in use"));
+    } else {
+      next();
     }
-    else if (result){
-      done(new Error("Username is already in use"))
-    }
-    else {
-      next()
-    }
-  })
-})
+  });
+});
 module.exports = mongoose.model("users", UserSchema);
