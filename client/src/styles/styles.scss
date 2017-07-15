@@ -1,4 +1,5 @@
+//this fixes an error with the icons, do not remove
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-@import "_flatly_variables.scss"; 
+
+@import "_flatly_variables.scss"; // swap this out with another variables file to change theme
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-// @import 'node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot'
