@@ -46,11 +46,14 @@ UserSchema.methods = {
   authenticate: function(plainTextPassword) {
     return bcrypt.compareSync(plainTextPassword, this.password);
   },
-  //hash the passwords
+
+  //Hash the passwords
   encryptPassword: function(plainTextPassword) {
     if (!plainTextPassword) {
       return "";
     } else {
+
+      //Salt the Password
       var salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(plainTextPassword, salt);
     }
