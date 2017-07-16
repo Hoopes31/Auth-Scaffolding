@@ -46,11 +46,14 @@ UserSchema.methods = {
   authenticate: function(plainTextPassword) {
     return bcrypt.compareSync(plainTextPassword, this.password);
   },
-  //hash the passwords
+
+  //Hash the passwords
   encryptPassword: function(plainTextPassword) {
     if (!plainTextPassword) {
       return "";
     } else {
+
+      //Salt the Password
       var salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(plainTextPassword, salt);
     }
@@ -58,17 +61,15 @@ UserSchema.methods = {
 };
 
 UserSchema.pre("save", function(next, done) {
-  const User = mongoose.model('User', UserSchema)
-  User.findOne({username: this.username}, function(err, result) {
-    if(err) {
-      done(err)
+  const User = mongoose.model("User", UserSchema);
+  User.findOne({ username: this.username }, function(err, result) {
+    if (err) {
+      done(err);
+    } else if (result) {
+      done(new Error("Username is already in use"));
+    } else {
+      next();
     }
-    else if (result){
-      done(new Error("Username is already in use"))
-    }
-    else {
-      next()
-    }
-  })
-})
+  });
+});
 module.exports = mongoose.model("users", UserSchema);

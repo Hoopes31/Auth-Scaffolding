@@ -6,7 +6,7 @@
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
-const config = require('./config/config')
+const config = require("./config/config");
 
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
