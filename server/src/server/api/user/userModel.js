@@ -25,10 +25,13 @@ var UserSchema = new Schema({
     required: true,
     minlength: 8
   },
-  gardin: {
-    type: Schema.Types.ObjectId,
-    ref: "gardin"
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'moderator'],
+    default: 'user'
   }
+}, {
+  timestamp: true
 });
 
 //Add methods to your schema

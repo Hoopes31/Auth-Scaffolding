@@ -8,6 +8,7 @@ function helmetCustom(app) {
         }
     }))
     app.use(helmet.referrerPolicy({policy: 'same-origin'}))
+    app.use(helmet.hidePoweredBy({setTo: "The Death Star"}))
 }
 
 module.exports = helmetCustom
