@@ -12,27 +12,27 @@ const config = require("../config/config");
 //use of expressJwt!
 //grab user Model and create an instance of it
 const User = require("../api/user/userModel");
-const checkToken = expressJwt({ secret: config.secrets.jwt })
+const checkToken = expressJwt({ secret: config.secrets.jwt });
 
 exports.decodeToken = (req, res, next) => {
-  req.token = req.get('Authorization')
-  checkToken(req, res, next)
-}
+  req.token = req.get("Authorization");
+  checkToken(req, res, next);
+};
 
 exports.getUser = (req, res, next) => {
-    User.findById(req.user._id).then(
-      function(user) {
-        if (!user) {
-          res.status(401).send("Unauthorized");
-        } else {
-          req.user = user;
-          next();
-        }
-      },
-      function(err) {
-        next(err);
+  User.findById(req.user._id).then(
+    function(user) {
+      if (!user) {
+        res.status(401).send("Unauthorized");
+      } else {
+        req.user = user;
+        next();
       }
-    );
+    },
+    function(err) {
+      next(err);
+    }
+  );
 };
 
 exports.verifyUser = (req, res) => {
@@ -44,7 +44,7 @@ exports.verifyUser = (req, res) => {
 
     if (!username || !password) {
       res.status(404).send("You need an account");
-      res.end()
+      res.end();
     }
 
     //check to see if user exisits in our db
@@ -52,7 +52,7 @@ exports.verifyUser = (req, res) => {
 
     User.findOne({ username: username }).then(user => {
       if (!user) {
-        res.status(404).send('No user by that Username');
+        res.status(404).send("No user by that Username");
       } else {
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
         if (!user.authenticate(password)) {
