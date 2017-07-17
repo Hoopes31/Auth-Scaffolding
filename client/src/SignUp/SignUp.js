@@ -1,5 +1,5 @@
 import React from 'react'
-import setHeader from './shared/setHeader'
+import setHeader from '../shared/setHeader'
 import {Col,Row, Form, FormControl, Button} from 'react-bootstrap'
 import {withRouter} from "react-router"
 class SignUp extends React.Component {

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
 import {Col, Row} from 'react-bootstrap'
 class LoggedOutOnly extends Component{
     handleLogout(){
