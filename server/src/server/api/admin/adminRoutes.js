@@ -5,7 +5,7 @@ const controller = require('./adminController')
 adminRoutes.route("/")
     .get(controller.root)
 
-adminRoutes.route(":username")
+adminRoutes.route("/:username")
     .get(controller.findUser)
     .delete(controller.deleteUser)
     
