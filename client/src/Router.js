@@ -30,7 +30,8 @@ class Router extends Component{
     setCredentials(token, role) {
         localStorage.setItem('Authorization', token)
         if (role === 'admin'){
-            localStorage.setItem('Role', role)
+            console.log(role)
+            localStorage.setItem('role', role)
         }
         this.checkForCredentials()
     }
@@ -76,14 +77,14 @@ class Router extends Component{
         }
     }
     adminOnly(component){
-        if (this.state.isLoggedIn && this.state.isLoggedIn){
+        
+        if (this.state.isLoggedIn && this.state.isAdmin){
+            console.log(this.state.isAdmin)
             return () => {
                 return component
             }
         }else{
             return () => {
-                //We have to store the JSX in a variable before we return it, because returning raw JSX to 
-                //the Route's component prop is unsupported. This way we make sure it gets parsed first.
                 let result = <Unauthorized/> 
                 return result
             }
@@ -111,7 +112,7 @@ class Router extends Component{
         }else{
             this.setState({isLoggedIn: false})
         }
-        if (localStorage.getItem('Role') === "admin"){
+        if (localStorage.getItem('role') === "admin"){
             this.setState({isAdmin: true})
         }else{
             this.setState({isAdmin: false})
@@ -126,7 +127,7 @@ class Router extends Component{
                 <Route path="/signup" component={this.loggedOutOnly(<SignUp checkForCredentials={this.checkForCredentials}/>)} />
                 <Route path="/login" component={this.loggedOutOnly(<Login login = {this.login} />)} />
                 <Route path="/profile" component={this.protect(<Profile />)} />
-                <Route path="/profile" component={this.adminOnly(<AdminDashboard />)} />
+                <Route path="/admindashboard" component={this.adminOnly(<AdminDashboard />)} />
                 <Route component={NotFound} />
             </Switch>
         </Grid>

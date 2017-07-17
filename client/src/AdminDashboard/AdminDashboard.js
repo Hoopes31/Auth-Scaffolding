@@ -12,4 +12,4 @@ class AdminDashboard extends Component {
         )
     }
 }
-
+export default AdminDashboard 
