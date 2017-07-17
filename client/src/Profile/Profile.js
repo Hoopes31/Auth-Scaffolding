@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import setHeader from './shared/setHeader'
+import setHeader from '../shared/setHeader'
 import {Col, Row} from 'react-bootstrap';
 class Profile extends Component {
     constructor(){
