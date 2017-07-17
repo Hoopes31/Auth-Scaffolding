@@ -1,5 +1,4 @@
 const Users = require("../user/userModel");
-const logger = require("../../util/logger");
 
 //how to create a token from AUTH
 const signToken = require("../../auth/auth").signToken;
