@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {Col, Row} from 'react-bootstrap'
 class NotFound extends Component{
     handleLogout(){
-        this.props.logout();
+        this.props.logout()
     }
     render(){
     return(
@@ -15,4 +15,4 @@ class NotFound extends Component{
     )
     }
 }
-export default NotFound;
+export default NotFound

@@ -12,4 +12,4 @@ class Unauthorized extends Component{
     )
     }
 }
-export default Unauthorized;
+export default Unauthorized

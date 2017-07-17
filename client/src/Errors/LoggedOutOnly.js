@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Col, Row} from 'react-bootstrap'
 class LoggedOutOnly extends Component{
     handleLogout(){
-        this.props.logout();
+        this.props.logout()
     }
     render(){
     return(
@@ -14,4 +14,4 @@ class LoggedOutOnly extends Component{
     )
     }
 }
-export default LoggedOutOnly;
+export default LoggedOutOnly
