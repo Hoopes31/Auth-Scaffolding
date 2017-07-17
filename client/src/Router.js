@@ -38,17 +38,13 @@ class Router extends Component{
     //pass logout to any Component that requires a logout button and call it as a prop.
     logout(){
         localStorage.removeItem('Authorization')
-        localStorage.removeItem('Role')
+        localStorage.removeItem('role')
         this.checkForCredentials()
     }
     login(body){
         let success = null
         let getLogin = fetch('/api/login', setHeader('POST', '', body))
             .then(response => response.json())
-            .then((res) => {
-                console.log(res)
-                return res
-            })
             .then(response => this.setCredentials(response.token, response.role))
             .then(response => success = true)
             .then(response => this.checkForCredentials())
