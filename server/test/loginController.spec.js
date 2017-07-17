@@ -85,7 +85,7 @@ describe('LOGIN: BAD_USER:', () => {
             chai.request(server)
                 .post('/api/login')
                 .end((err, res) => {
-                    res.should.have.status(404)
+                    res.should.have.status(401)
                     res.body.should.not.have.property('token')
                     done()
                 })

@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'test'
 //Require test dependencies
 const mongoose = require('mongoose')
 const User = require('../src/server/api/user/userModel')
+const signToken = require('../src/server/auth/auth').signToken
 const _ = require('lodash')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
@@ -15,6 +16,7 @@ chai.use(chaiHttp)
 //POST: LOGIN SUCCESS
 describe('PROFILE: GOOD_TOKEN:', () => {
 
+    var token = ''
     //Create User and Grab Token
     before(function() {
         let user = {
@@ -28,9 +30,15 @@ describe('PROFILE: GOOD_TOKEN:', () => {
         //Create User
         newUser = new User
         _.assign(newUser, user)
-        newUser.save()
 
-        //Grab Token
+        newUser.save(function(err, user) {
+            if (err) {
+                return res.status(422).json({ err: err.message });
+                } else {
+                token = `Bearer ${signToken(newUser._id)}`;
+                }
+        })
+        console.log(token)
     })
 
     //Wipe User
@@ -48,6 +56,7 @@ describe('PROFILE: GOOD_TOKEN:', () => {
             }
             chai.request(server)
                 .post('/api/profile')
+                .set('Authorization', token)
                 .send(userLogin)
                 .end((err, res) => {
                     res.should.have.status(200)
