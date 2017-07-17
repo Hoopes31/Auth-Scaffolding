@@ -43,7 +43,7 @@ exports.verifyUser = (req, res) => {
     //verify username and password were passed in
 
     if (!username || !password) {
-      res.status(404).send("You need an account");
+      res.status(401).send("You need an account");
       res.end();
     }
 
@@ -52,15 +52,15 @@ exports.verifyUser = (req, res) => {
 
     User.findOne({ username: username }).then(user => {
       if (!user) {
-        res.status(404).send("No user by that Username");
+        res.status(401).send("No user by that Username");
       } else {
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
         if (!user.authenticate(password)) {
-          res.status(404).send("That is the wrong password");
+          res.status(401).send("That is the wrong password");
         } else {
           //if all good attach req.user to user for further work on user.
           req.user = user;
-          next();
+          return next();
         }
       }
     }), function(err) {
@@ -68,6 +68,27 @@ exports.verifyUser = (req, res) => {
     };
   };
 };
+
+exports.roleAuthorization = function(roles){
+
+    return function(req, res, next){
+
+        let user = req.user;
+
+        User.findById(user._id, function(err, foundUser){
+            if(err){
+                return res.status(422).json({error: 'No user found.'});
+            }
+            if(roles.indexOf(foundUser.role) > -1){
+                return next();
+            }
+            res.status(401).json({error: 'You are not authorized to view this content'});
+            return next('Unauthorized');
+        });
+ 
+    }
+ 
+}
 
 exports.signToken = id => {
   //send back a signed ID + Secret with Expiration Count

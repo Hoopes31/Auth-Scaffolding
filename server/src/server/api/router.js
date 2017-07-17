@@ -4,6 +4,7 @@
 const router = require("express").Router();
 const decodeToken = require("../auth/auth").decodeToken;
 const getUser = require("../auth/auth").getUser;
+const roleAuthorization = require('../auth/auth').roleAuthorization
 
 //setup route constants
 
@@ -15,6 +16,6 @@ const profileRoutes = require("./profile/profileRoutes");
 
 router.use("/signUp", signUpRoutes);
 router.use("/login", loginRoutes);
-router.use("/profile", decodeToken, getUser, profileRoutes);
+router.use("/profile", decodeToken, getUser, roleAuthorization(['user', 'admin']), profileRoutes);
 
 module.exports = router;
