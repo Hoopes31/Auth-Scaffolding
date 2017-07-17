@@ -16,6 +16,11 @@ middleware(app);
 const api = require("./api/router");
 app.use("/api", api);
 
+//Setup Seed
+if(config.seed) {
+  require('./util/seed')
+}
+
 //Setup Error Handling
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
