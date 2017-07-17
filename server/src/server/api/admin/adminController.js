@@ -4,26 +4,6 @@ exports.root = (req, res, next) => {
     res.send('Admin Root')
 }
 
-exports.findUser = (req, res, next) => {
-    Users.findOne({ username: this.username })
-        .then((result) => {
-            if(result) {
-                return console.log(result)
-            } else {
-                return console.log('No result')
-            }
-        })
-    res.end()
-}
-
-exports.deleteUser = (req, res, next) => {
-
-}
-
-exports.addUser = (req, res, next) => {
-
-}
-
 exports.findAllUsers = (req, res, next) => {
     //let user = Users.findOne({username: {$exists: true}})
     Users.find({username: {$exists: true}})
@@ -37,3 +17,18 @@ exports.findAllUsers = (req, res, next) => {
     res.end()
 }
 
+exports.findUser = (req, res, next) => {
+    Users.findOne({ username: req.query.username })
+        .then((result) => {
+            if(result) {
+                return console.log(result)
+            } else {
+                return console.log('No result')
+            }
+        })
+    res.end()
+}
+
+exports.deleteUser = (req, res, next) => {
+    Users.find(One({ }))
+}
