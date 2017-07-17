@@ -23,7 +23,7 @@ exports.getUser = (req, res, next) => {
   User.findById(req.user._id).then(
     function(user) {
       if (!user) {
-        res.status(401).send("Unauthorized");
+        res.status(500).send("Unauthorized");
       } else {
         req.user = user;
         next();
@@ -53,12 +53,14 @@ exports.verifyUser = (req, res) => {
     User.findOne({ username: username }).then(user => {
       if (!user) {
         res.status(401).send("No user by that Username");
-      } else {
+        
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
+      } else {
         if (!user.authenticate(password)) {
           res.status(401).send("That is the wrong password");
+        
+        //if all good attach req.user to user for further work on user.
         } else {
-          //if all good attach req.user to user for further work on user.
           req.user = user;
           return next();
         }

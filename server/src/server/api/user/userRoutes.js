@@ -7,7 +7,10 @@ userRouter.route("/").get(function(req, res, next) {
   res.send("Welcome to the user Route");
 });
 
-//Create New User
+//Grab All Users
+
+
+//Delete User
 
 /*
 
