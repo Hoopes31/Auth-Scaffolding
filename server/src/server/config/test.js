@@ -2,7 +2,7 @@ module.exports = {
   db: {
     url: "test"
   },
-  logging: false,
+  logging: true,
   secrets: {
     jwt: "process.env.SECRET"
   },
