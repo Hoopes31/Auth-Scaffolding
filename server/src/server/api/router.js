@@ -18,6 +18,6 @@ const adminRoutes = require("./admin/adminRoutes")
 router.use("/signUp", signUpRoutes);
 router.use("/login", loginRoutes);
 router.use("/profile", decodeToken, getUser, roleAuthorization(['user', 'admin']), profileRoutes);
-router.use("/admin", decodeToken, getUser, roleAuthorization(['user', 'admin']), adminRoutes)
+router.use("/admin", adminRoutes)
 
 module.exports = router;

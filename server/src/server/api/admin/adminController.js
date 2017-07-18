@@ -4,8 +4,9 @@ exports.root = (req, res, next) => {
     res.send('Admin Root')
 }
 
+//Return all users
+//TODO: Setup chunking
 exports.findAllUsers = (req, res, next) => {
-    //let user = Users.findOne({username: {$exists: true}})
     Users.find({username: {$exists: true}})
     .then((result)=> {
         if (result) {
@@ -17,11 +18,13 @@ exports.findAllUsers = (req, res, next) => {
     res.end()
 }
 
+//Return single user from username search
 exports.findUser = (req, res, next) => {
     Users.findOne({ username: req.query.username })
         .then((result) => {
             if(result) {
-                return console.log(result)
+                console.log(result)
+                return res.json(result)
             } else {
                 return console.log('No result')
             }
@@ -29,6 +32,12 @@ exports.findUser = (req, res, next) => {
     res.end()
 }
 
+//Delete user by id
 exports.deleteUser = (req, res, next) => {
-    Users.find(One({ }))
+    Users.find({_id: req.foundUser})
+        .then(response => {
+            if(response){
+                console.log('This user dies ' + response)
+            }
+        })
 }
