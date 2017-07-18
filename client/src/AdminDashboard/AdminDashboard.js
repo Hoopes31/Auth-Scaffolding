@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import setHeader from '../shared/setHeader'
 import {Col,Row} from 'react-bootstrap'
 
 class AdminDashboard extends Component {
@@ -13,4 +12,4 @@ class AdminDashboard extends Component {
         )
     }
 }
-
+export default AdminDashboard 
