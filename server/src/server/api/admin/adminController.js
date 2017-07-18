@@ -1,16 +1,26 @@
 const Users = require("../user/userModel")
 
-exports.root = (req, res, next) => {
-    res.send('Admin Root')
+//Grab User ID
+exports.findID = ( req, res, next) => {
+    Users.findOne({ username: req.query.username })
+        .then((response) => {
+            if(response) {
+                //ad foundUser & ID to req
+                req.foundUserID = response._id
+                next()
+            } else {
+                res.send('No result')
+            }
+        })
 }
 
 //Return all users
 //TODO: Setup chunking
 exports.findAllUsers = (req, res, next) => {
     Users.find({username: {$exists: true}})
-    .then((result)=> {
-        if (result) {
-            res.json(result)
+    .then((response)=> {
+        if (response) {
+            res.json(response)
         } else {
             res.send('No users found')
         }
@@ -20,24 +30,13 @@ exports.findAllUsers = (req, res, next) => {
 
 //Return single user from username search
 exports.findUser = (req, res, next) => {
-    Users.findOne({ username: req.query.username })
-        .then((result) => {
-            if(result) {
-                console.log(result)
-                return res.json(result)
-            } else {
-                return console.log('No result')
-            }
-        })
-    res.end()
+    Users.findOne({ _id: req.foundUserID })
+        .then(response => res.json(response))
+        .catch(err => res.send(err))
 }
 
 //Delete user by id
 exports.deleteUser = (req, res, next) => {
-    Users.find({_id: req.foundUser})
-        .then(response => {
-            if(response){
-                console.log('This user dies ' + response)
-            }
-        })
+    Users.find({_id: req.foundUserID}).remove().exec()
+    res.end()
 }
