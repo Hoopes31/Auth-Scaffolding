@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const users = [
     {
-        username: `${process.env.USERNAME}`,
+        username: `${process.env.ADMINNAME}`,
         password: `${process.env.PASSWORD}`,
         email: "email@email.com",
         firstName: "admin",
