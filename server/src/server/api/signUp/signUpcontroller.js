@@ -20,7 +20,7 @@ exports.createUser = (req, res) => {
       return res.status(400).json({ err: err.message });
     } else {
       const token = `Bearer ${signToken(newUser._id)}`;
-      const role = req.user.role
+      const role = newUser.role ? newUser.role : 'user'
       return res.json({ 
         token: token,
         role: role
