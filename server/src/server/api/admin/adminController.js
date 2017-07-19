@@ -37,6 +37,7 @@ exports.deleteUser = (req, res, next) => {
 
 //Promote user by id
 exports.promoteUser = (req, res, next) => {
-    User.update({_id: req.foundUserID}, {role: 'moderator'})
+    Users.update({_id: req.foundUserID}, {role: 'moderator'})
+        .then(response => res.json(response))
         .catch(err => res.send(err))
 }
