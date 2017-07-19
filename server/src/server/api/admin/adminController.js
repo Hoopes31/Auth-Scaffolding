@@ -33,5 +33,10 @@ exports.findUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     Users.find({_id: req.foundUserID}).remove().exec()
         .catch(err => res.send(err))
-        res.end()
+}
+
+//Promote user by id
+exports.promoteUser = (req, res, next) => {
+    User.update({_id: req.foundUserID}, {role: 'moderator'})
+        .catch(err => res.send(err))
 }
