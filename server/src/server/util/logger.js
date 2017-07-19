@@ -26,7 +26,7 @@ var logger = {
         return logAlert + string.red;
       } else {
         arg.toString();
-        return logAlert + arg.red;
+        return logAlert + arg.blue;
       }
     });
 

@@ -15,7 +15,8 @@ let user = {
         firstName: "James",
         lastName: "Bond",
         email: "JamesBond@test.com",
-        password: "testing123"
+        password: "testing123",
+        role: "user"
     }
 
 chai.use(chaiHttp)

@@ -18,8 +18,8 @@ exports.findID = ( req, res, next) => {
 //TODO: Setup chunking
 exports.findAllUsers = (req, res, next) => {
     Users.find({username: {$exists: true}})
-    .then(response => res.json(response))
-    .catch(err => res.send('No Users Found'))
+        .then(response => res.json(response))
+        .catch(err => res.send('No Users Found'))
 }
 
 //Return single user from username search
@@ -32,6 +32,6 @@ exports.findUser = (req, res, next) => {
 //Delete user by id
 exports.deleteUser = (req, res, next) => {
     Users.find({_id: req.foundUserID}).remove().exec()
-    .catch(err => res.send(err))
-    res.end()
+        .catch(err => res.send(err))
+        res.end()
 }

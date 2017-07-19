@@ -38,7 +38,6 @@ describe('PROFILE: GOOD_TOKEN:', () => {
                 token = `Bearer ${signToken(newUser._id)}`;
                 }
         })
-        console.log(token)
     })
 
     //Wipe User
