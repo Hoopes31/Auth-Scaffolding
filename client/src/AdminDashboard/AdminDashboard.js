@@ -5,15 +5,18 @@ class AdminDashboard extends Component {
     constructor(){
         super()
         this.state = {users: [
-            {username: 'bob', firstName: 'bob', lastName: 'bobert', rank: 'user'}
+            {username: 'bob', firstName: 'bob', lastName: 'bobert', role: 'user'}
         ]}
     }
     getUsers(){
         let token = localStorage.getItem('token')
-        let result = fetch('/api/findAllUsers', setHeader('GET', token , {}))
+        let result = fetch('/api/admin/findAllUsers', setHeader('GET', token , {}))
             .then((response) => {
                 console.log(response)
-                return response
+                return response.json()
+            })
+            .then((response) => {
+                // this.setState({users: response})
             })
 
     }
@@ -62,7 +65,7 @@ class UserTableRow extends Component{
                 <td className="text-center">{this.props.user.firstName}</td>
                 <td className="text-center">{this.props.user.lastName}</td>
                 <td className="text-center"><span role="img" aria-label="cross mark">❌</span></td>
-                <td className="text-center"><span >{this.props.user.rank}</span> <span className="pull-right" role="img" aria-label="pencil">✏️</span></td>
+                <td className="text-center"><span >{this.props.user.role}</span> <span className="pull-right" role="img" aria-label="pencil">✏️</span></td>
             </tr>
         )
     }
