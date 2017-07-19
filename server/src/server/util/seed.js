@@ -18,8 +18,7 @@ const users = [
         password: "password123",
         email: "email@email.com",
         firstName: "user",
-        lastName: "user",
-        role: "user"
+        lastName: "user"
     }
 
 ]
