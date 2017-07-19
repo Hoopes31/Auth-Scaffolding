@@ -4,17 +4,6 @@ const _ = require('lodash')
 const logger = require('./logger')
 require('dotenv').config()
 
-logger.log('Seeding Database')
-
-const cleanDB = function() {
-    logger.log('Cleaning DB')
-    const cleanPromises = [User]
-        .map(function(model) {
-            return model.remove().exec()
-        })
-        return Promise.all(cleanPromises)
-}
-
 const users = [
     {
         username: `${process.env.USERNAME}`,
@@ -46,6 +35,7 @@ const createDoc = function(model, doc) {
 }
 
 const createUser = function(data) {
+
     //create a promise that creats a doc for each user
     const promises = users.map(function(user){
         return createDoc(User, user)
@@ -57,10 +47,12 @@ const createUser = function(data) {
         .then(function(users){
             return _.merge({users: users}, data || {})
         })
-        .then(result => {return 'DB SEEDED'})
 }
 
-cleanDB()
-    .then(createUser)
-    .then(logger.log.bind(logger))
-    .catch(logger.log.bind(logger))
+User.find({username: "user"})
+    .then(response => {
+        if (response[0] === undefined) {
+            createUser().then(logger.log('DB SEEDED'))
+        } 
+    })
+    .catch(err => console.log(err))
