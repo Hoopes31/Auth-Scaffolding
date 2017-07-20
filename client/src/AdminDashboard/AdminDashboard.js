@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import {Col,Row, Table, Modal, Button} from 'react-bootstrap'
+import {Col,Row, Table, Modal, Button, Radio, FormGroup} from 'react-bootstrap'
 import setHeader from '../shared/setHeader'
 class AdminDashboard extends Component {
     constructor(){
         super()
-        this.state = {users: [], showModal: false, activeModalUser: {}}
+        this.state = {users: [], showModal: false, activeModalUser: {}, roles: ['admin','moderator','user' ]}
         this.toggleEditModal = this.toggleEditModal.bind(this) 
+        this.deleteUser = this.deleteUser.bind(this)
+        this.editUser = this.editUser.bind(this)
     }
     getUsers(){
         fetch('/api/admin/findAllUsers', setHeader('GET', localStorage.getItem('Authorization'), {}))
@@ -23,17 +25,26 @@ class AdminDashboard extends Component {
         this.getUsers()
     }
     deleteUser(user){
-        fetch('/api/admin/findUser', setHeader('DELETE', localStorage.getItem('Authorization'), {_id: user._id}))
+        let query = `/api/admin/findUser?username=${user.username}`
+        fetch(query, setHeader('DELETE', localStorage.getItem('Authorization'), {}))
             .then((response) => {
-                console.log(response)
+                this.getUsers()
                 return response
             })
             .catch((err) => {
                 console.error(err)
             })
     }
-    editUser(user){
-        console.log(user)
+    editUser(user,role){
+        let query = `/api/admin/findUser?username=${user.username}&roleUpdate=${role}`
+        fetch(query, setHeader('PUT', localStorage.getItem('Authorization'), {}))
+            .then((response) => {
+                this.getUsers()
+                return response
+            })
+            .catch((err) => {
+                console.error(err)
+            })
     }
     render(){
         return(
@@ -43,6 +54,7 @@ class AdminDashboard extends Component {
             </Col>
             <EditModal showModal={this.state.showModal} activeModalUser={this.state.activeModalUser} 
                        toggleEditModal={this.toggleEditModal} editUser={this.editUser}
+                       roles={this.state.roles}
                        />
         </Row>
 
@@ -105,11 +117,16 @@ class UserTableRow extends Component{
 class EditModal extends Component{
     constructor(){
         super();
+        this.state = {role: ''}
         this.handleConfirm = this.handleConfirm.bind(this)
+        this.changeRole = this.changeRole.bind(this)
     }
     handleConfirm(){
-        this.props.editUser(this.props.activeModalUser)
+        this.props.editUser(this.props.activeModalUser, this.state.role)
         this.props.toggleEditModal()
+    }
+    changeRole(event){
+        this.setState({role: event.target.id})
     }
     render(){
         return(
@@ -118,7 +135,12 @@ class EditModal extends Component{
                     <Modal.Title>Edit Role</Modal.Title>
                 </Modal.Header>
             <Modal.Body>
-            
+                <FormGroup>
+                    {this.props.roles.map((role,i) => {
+                        return <Radio key={role} id={role} name="radioGroup" inline onClick={this.changeRole}> {role} </Radio>
+                    })}
+                </FormGroup>
+
             </Modal.Body>
                 <Modal.Footer>
                     <Button bsStyle="primary" onClick={this.handleConfirm}>Confirm</Button> 
