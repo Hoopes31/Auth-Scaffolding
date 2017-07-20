@@ -49,13 +49,13 @@ class SignUp extends React.Component {
             .then(response => response.json())
             .then((response) => {
                 this.setToken(response.token)
-                this.props.checkForToken()
+                this.props.checkForCredentials()
                 return response.token
             })
             .then(response => {this.props.history.push('/profile')})
             .catch((error) => {
-                this.setState({errorMessage: error})
-                console.warn(error)
+                this.setState({errorMessage: 'Internal Error, please contact site admin'})
+                console.error(error)
             })
         }
     }
