@@ -15,8 +15,6 @@ chai.use(chaiHttp)
 
 //POST: LOGIN SUCCESS
 describe('PROFILE: GOOD_TOKEN:', () => {
-
-    var token = ''
     //Create User and Grab Token
     before(function() {
         let user = {
@@ -34,10 +32,9 @@ describe('PROFILE: GOOD_TOKEN:', () => {
         newUser.save(function(err, user) {
             if (err) {
                 return res.status(422).json({ err: err.message });
-                } else {
-                token = `Bearer ${signToken(newUser._id)}`;
-                }
+                } 
         })
+        token ='Bearer ' + signToken(newUser._id)
     })
 
     //Wipe User
@@ -48,15 +45,9 @@ describe('PROFILE: GOOD_TOKEN:', () => {
     //Run Good User Test
     describe('TEST_GOOD_TOKEN', () => {
         it('PROFILE_SUCCESS', (done) => {
-
-            let userLogin = {
-                username: "Agent",
-                password: "testing123"
-            }
             chai.request(server)
                 .post('/api/profile')
                 .set('Authorization', token)
-                .send(userLogin)
                 .end((err, res) => {
                     res.should.have.status(200)
                     res.body.should.have.property('token')
