@@ -15,9 +15,16 @@ exports.findID = ( req, res, next) => {
 }
 
 //Return all users
-//TODO: Setup chunking
+//TODO: Setup chunking use range searches with range start end sent by user and page
 exports.findAllUsers = (req, res, next) => {
-    Users.find({username: {$exists: true}})
+    let cursor = Users.find(
+        { //the $gt date check || $and isn't working
+            $and:[
+                {date: {$gt: req.query.page}},
+                {username: {$exists: true}}
+            ] },
+                {__v: 0}
+            )
         .select('-password -_id')
         .then(response => res.json(response))
         .catch(err => res.send('No Users Found'))
@@ -26,7 +33,7 @@ exports.findAllUsers = (req, res, next) => {
 //Return single user from username search
 //TODO: Setup chunking
 exports.findUser = (req, res, next) => {
-    Users.findOne({ _id: req.foundUserID })
+    Users.findOne({ _id: req.foundUserID }, {__v: 0})
         .select('-password -_id')
         .then(response => res.json(response))
         .catch(err => res.send(err))
@@ -45,7 +52,7 @@ exports.roleUpdate = (req, res, next) => {
         res.status(400).send('You must enter a valid role.')
     } else {
         Users.findByIdAndUpdate(req.foundUserID, {role: req.query.roleUpdate}, {runValidators: true})
-            .then(response => res.send(`${response.username}'s role has been updated to ${response.role}`))
+            .then(response => res.send(`${response.username}'s role has been updated to ${req.query.roleUpdate}`))
             .catch(err => res.send('You must use a defined role'))  
     }
 }
