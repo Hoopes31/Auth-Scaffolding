@@ -4,7 +4,7 @@ import setHeader from '../shared/setHeader'
 class AdminDashboard extends Component {
     constructor(){
         super()
-        this.state = {users: [], showModal: false, activeModalUser: {}, roles: ['admin','moderator','user' ]}
+        this.state = {users: [], showModal: false, activeModalUser: {}, roles: ['moderator','user' ]}
         this.toggleEditModal = this.toggleEditModal.bind(this) 
         this.deleteUser = this.deleteUser.bind(this)
         this.editUser = this.editUser.bind(this)
