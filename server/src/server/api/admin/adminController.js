@@ -5,7 +5,6 @@ exports.findID = ( req, res, next) => {
     Users.findOne({ username: req.query.username })
         .then((response) => {
             if(response) {
-                //ad foundUser & ID to req
                 req.foundUserID = response._id
                 next()
             } else {
@@ -32,6 +31,7 @@ exports.findUser = (req, res, next) => {
 //Delete user by id
 exports.deleteUser = (req, res, next) => {
     Users.find({_id: req.foundUserID}).remove().exec()
+        .then(res.send(`user removed`))
         .catch(err => res.send(err))
 }
 
