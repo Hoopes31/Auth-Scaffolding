@@ -29,9 +29,11 @@ var UserSchema = new Schema({
     type: String,
     enum: ['user', 'admin', 'moderator'],
     default: 'user'
+  },
+  date: { 
+    type: Date, 
+    default: Date.now()
   }
-}, {
-  timestamp: true
 });
 
 //Add methods to your schema
