@@ -33,19 +33,16 @@ exports.findUser = (req, res, next) => {
 }
 
 //Delete user by id
-//TODO: Cannot Delete GOD
 exports.deleteUser = (req, res, next) => {
     Users.find({_id: req.foundUserID}).remove().exec()
         .then(res.send(`User removed`))
         .catch(err => res.send(err))
 }
 
-//Role Update
+//Role Update && Block Admin Promotion
 exports.roleUpdate = (req, res, next) => {
-
-    //Do not allow empty role or admin creation
     if (!req.query.roleUpdate || req.query.roleUpdate === 'admin') {
-        res.send('You must enter a valid role.')
+        res.status(400).send('You must enter a valid role.')
     } else {
         Users.findByIdAndUpdate(req.foundUserID, {role: req.query.roleUpdate}, {runValidators: true})
             .then(response => res.send(`${response.username}'s role has been updated to ${response.role}`))
@@ -56,7 +53,7 @@ exports.roleUpdate = (req, res, next) => {
 //Prevent changes to admin
 exports.adminPrivelage = (req, res, next) => {
     if (req.role === 'admin') {
-        return res.send('Admins cannot be modified')
+        return res.status(403).send('Admins cannot be modified')
     } else {
         next()
     }
