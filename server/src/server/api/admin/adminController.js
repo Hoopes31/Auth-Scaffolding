@@ -15,7 +15,6 @@ exports.findID = ( req, res, next) => {
 }
 
 //Return all users
-//TODO: Setup chunking use range searches with range start end sent by user and page
 exports.findAllUsers = (req, res, next) => {
     let cursor = Users.find(
         { //the $gt date check || $and isn't working
@@ -31,7 +30,6 @@ exports.findAllUsers = (req, res, next) => {
 }
 
 //Return single user from username search
-//TODO: Setup chunking
 exports.findUser = (req, res, next) => {
     Users.findOne({ _id: req.foundUserID }, {__v: 0})
         .select('-password -_id')
