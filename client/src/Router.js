@@ -30,7 +30,6 @@ class Router extends Component{
     setCredentials(token, role) {
         localStorage.setItem('Authorization', token)
         if (role === 'admin'){
-            console.log(role)
             localStorage.setItem('role', role)
         }
         this.checkForCredentials()
@@ -73,9 +72,7 @@ class Router extends Component{
         }
     }
     adminOnly(component){
-        
         if (this.state.isLoggedIn && this.state.isAdmin){
-            console.log(this.state.isAdmin)
             return () => {
                 return component
             }

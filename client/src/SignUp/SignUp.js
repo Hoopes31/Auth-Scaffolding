@@ -42,23 +42,21 @@ class SignUp extends React.Component {
                     firstName: this.state.firstName,
                     lastName: this.state.lastName,
                     email: this.state.email,
-                    password: this.state.password,
+                    password: this.state.password
             })
 
             fetch('/api/signUp', setHeader('POST', '', body))
             .then(response => response.json())
-            .then(response => {
-                if (!response.err) {
-                    this.setToken(response.token)
-                    this.props.checkForToken()
-                    return response.token
-                }
-                else {
-                    return this.setState({errorMessage: response.err})
-                }
+            .then((response) => {
+                this.setToken(response.token)
+                this.props.checkForCredentials()
+                return response.token
             })
             .then(response => {this.props.history.push('/profile')})
-            .catch(error => this.setState({errorMessage: error}))
+            .catch((error) => {
+                this.setState({errorMessage: 'Internal Error, please contact site admin'})
+                console.error(error)
+            })
         }
     }
     validateForm () {
