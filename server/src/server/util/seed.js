@@ -1,4 +1,3 @@
-
 const User = require('../api/user/userModel')
 const _ = require('lodash')
 const logger = require('./logger')
