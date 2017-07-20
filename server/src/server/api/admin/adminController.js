@@ -5,7 +5,6 @@ exports.findID = ( req, res, next) => {
     Users.findOne({ username: req.query.username })
         .then((response) => {
             if(response) {
-                //ad foundUser & ID to req
                 req.foundUserID = response._id
                 next()
             } else {
@@ -32,13 +31,14 @@ exports.findUser = (req, res, next) => {
 //Delete user by id
 exports.deleteUser = (req, res, next) => {
     Users.find({_id: req.foundUserID}).remove().exec()
+        .then(res.send(`user removed`))
         .catch(err => res.send(err))
 }
 
 //Promote user by id
+
 exports.roleUpdate = (req, res, next) => {
-    console.log(JSON.stringify(req.body))
-    Users.update({_id: req.foundUserID}, {role: ""})
+    Users.findByIdAndUpdate(req.foundUserID, {role: req.body.roleUpdate}, {runValidators: true})
         .then(response => res.json(response))
         .catch(err => res.send(err))
 }
