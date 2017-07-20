@@ -36,9 +36,9 @@ exports.deleteUser = (req, res, next) => {
 }
 
 //Promote user by id
+
 exports.roleUpdate = (req, res, next) => {
-    console.log(JSON.stringify(req.body))
-    Users.update({_id: req.foundUserID}, {role: ""})
+    Users.findByIdAndUpdate(req.foundUserID, {role: req.body.roleUpdate}, {runValidators: true})
         .then(response => res.json(response))
         .catch(err => res.send(err))
 }
