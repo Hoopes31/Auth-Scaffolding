@@ -10,15 +10,26 @@ const chaiHttp = require('chai-http')
 const server = require('../src/index')
 const should = chai.should()
 const auth = require('../src/server/auth/auth')
-const assert = chai.assert
 chai.use(chaiHttp)
 
 //POST: LOGIN SUCCESS
-describe('AUTH: decodeToken', () => {
-    it('should deny token', function() {
-        req = {
-            Authorization: "ABC"
-        }
-        assert.equal(auth.decodeToken(req), "err")
-    }) 
+describe('AUTH:', () => {
+
+    //create user to play with
+
+    describe('Sign Token', () => {
+        it('should return token', function() {
+            id = '12345'
+            auth.signToken(id).should.be.a('string')
+        }) 
+    })
+    describe('Verify User', () => {
+
+    })
+    describe('Find One User', () => {
+        
+    })
+    describe('Role Authorization', () => {
+        
+    })
 })
