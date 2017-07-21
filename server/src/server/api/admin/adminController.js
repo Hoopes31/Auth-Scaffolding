@@ -19,7 +19,7 @@ exports.findID = ( req, res, next) => {
 //To paginate send last date on the reponse object as the paginationDate
 
 exports.findAllUsers = (req, res, next) => {
-    let cursor = Users.find(
+    Users.find(
         { 
             $and:[
                 {date: {$lt: req.query.paginationDate}},
