@@ -14,17 +14,22 @@ exports.findID = ( req, res, next) => {
         })
 }
 
-//Return all users
+//Returns first 20 users less than todays date
+//Ordered by most recent user
+//To paginate send last date on the reponse object as the paginationDate
+
 exports.findAllUsers = (req, res, next) => {
     let cursor = Users.find(
-        { //the $gt date check || $and isn't working
+        { 
             $and:[
-                {date: {$gt: req.query.page}},
+                {date: {$lt: req.query.paginationDate}},
                 {username: {$exists: true}}
             ] },
                 {__v: 0}
             )
         .select('-password -_id')
+        .limit(20)
+        .sort('-date')
         .then(response => res.json(response))
         .catch(err => res.send('No Users Found'))
 }
