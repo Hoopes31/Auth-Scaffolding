@@ -9,6 +9,7 @@ class AdminDashboard extends Component {
         this.deleteUser = this.deleteUser.bind(this)
         this.editUser = this.editUser.bind(this)
     }
+
     getUsers(){
         fetch('/api/admin/findAllUsers', setHeader('GET', localStorage.getItem('Authorization'), {}))
             .then((response) => {
@@ -62,6 +63,7 @@ class AdminDashboard extends Component {
     }
 }
 class UserTable extends Component {
+
     render(){
         return(  
         <Table striped bordered condensed hover>
@@ -92,6 +94,14 @@ class UserTableRow extends Component{
         super()
         this.handleEdit = this.handleEdit.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.ifNotAdmin = this.ifNotAdmin.bind(this)
+    }
+    ifNotAdmin(component){
+        if (this.props.user.role !== 'admin'){
+                return component
+        }else{
+                return <td></td>
+        }
     }
     handleEdit(event){
         this.props.toggleEditModal(this.props.user)
@@ -108,8 +118,8 @@ class UserTableRow extends Component{
                 <td className="text-center">{this.props.user.username}</td>
                 <td className="text-center">{this.props.user.firstName}</td>
                 <td className="text-center">{this.props.user.lastName}</td>
-                <td className="text-center dash-button" onClick={this.handleDelete}><span role="img" aria-label="cross mark">❌</span></td>
-                <td className="text-center dash-button" onClick={this.handleEdit} ><span>{this.props.user.role}</span> <span className="pull-right" role="img" aria-label="pencil">✏️</span></td>
+                {this.ifNotAdmin(<td className="text-center dash-button" onClick={this.handleDelete}><span role="img" aria-label="cross mark">❌</span></td>)}
+                {this.ifNotAdmin(<td className="text-center dash-button" onClick={this.handleEdit} ><span>{this.props.user.role}</span> <span className="pull-right" role="img" aria-label="pencil">✏️</span></td>)}
             </tr>
         )
     }
