@@ -16,7 +16,7 @@
     "url": "https://github.com/Hoopes31/Auth-Scaffolding/issues"
   },
   "homepage": "https://github.com/Hoopes31/Auth-Scaffolding#readme",
-  "devDependencies": {
+  "dependencies": {
     "concurrently": "^3.5.0"
   }
 }
