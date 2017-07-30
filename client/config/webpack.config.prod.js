@@ -131,6 +131,7 @@ module.exports = {
       // When you `import` an asset, you get its filename.
       {
         exclude: [
+          /\.scss$/,
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
@@ -214,6 +215,18 @@ module.exports = {
         ),
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
+      {
+        rules: [{
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader" // compiles Sass to CSS
+            }]
+        }]
+    }
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
     ],
