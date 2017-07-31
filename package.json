@@ -2,7 +2,7 @@
   "name": "auth-scaffolding",
   "version": "1.0.0",
   "description": "base project for client/server",
-  "main": "index.js",
+  "main": "server/src/index.js",
   "scripts": {
     "dev": "concurrently \"npm run startclient \" \"npm run startserver \" ",
     "startserver": "nodemon server/src/index.js",
@@ -10,7 +10,9 @@
     "pretty": "prettier --write './src/**/*.js'",
     "startclient": "node client/scripts/start.js",
     "build": "node client/scripts/build.js",
-    "testclient": "jest"
+    "testclient": "jest",
+    "build:client": "webpack --config client/config/webpack.config.dev.js --production",
+    "start": "npm run dev"
   },
   "repository": {
     "type": "git",
@@ -97,5 +99,31 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "proxy": "http://localhost:3001",
+  "jest": {
+    "collectCoverageFrom": [
+      "client/src/**/*.{js,jsx}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testMatch": [
+      "<rootDir>/client/src/**/__tests__/**/*.js?(x)",
+      "<rootDir>/client/src/**/?(*.)(spec|test).js?(x)"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/client/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web"
+    }
   }
 }
