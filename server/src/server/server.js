@@ -3,11 +3,13 @@
 //Add MIDDLEWARE, ERROR HANDLING & ROUTES then export.
 
 //Instance of Express created:
+import * as path from 'path';
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
 const config = require("./config/config");
 const isProd = app.get('env') === 'production' ? true : false
+
 console.log("isProd =" +  isProd)
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
