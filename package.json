@@ -4,8 +4,8 @@
   "description": "base project for client/server",
   "main": "server/src/index.js",
   "scripts": {
-    "dev": "concurrently \"npm run startclient \" \"npm run startserver \" ",
-    "startserver": "nodemon server/src/index.js",
+    "dev": "concurrently \"npm run startclient \" \"nodemon server/src/index.js \" ",
+    "startserver": "node server/src/index.js",
     "testserver": "mocha -b --reporter=min --timeout 10000",
     "pretty": "prettier --write './src/**/*.js'",
     "startclient": "node client/scripts/start.js",

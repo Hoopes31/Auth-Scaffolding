@@ -6,9 +6,9 @@ var mongoose = require("mongoose");
 require("dotenv").config();
 
 //Database Start
-mongoose.connect(`mongodb://localhost/${config.db.url}`, err => {
+mongoose.connect(process.env.MONGO_URI, err => {
   if (!err) {
-    console.log(`Connected to ${config.db.url}`);
+    console.log(`Connected to ${process.env.MONGO_URI}`);
   } else {
     console.log(`ERROR ${err}`);
   }
