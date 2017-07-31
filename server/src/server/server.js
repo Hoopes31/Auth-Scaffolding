@@ -3,7 +3,7 @@
 //Add MIDDLEWARE, ERROR HANDLING & ROUTES then export.
 
 //Instance of Express created:
-import * as path from 'path';
+const path =  require('path');
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
