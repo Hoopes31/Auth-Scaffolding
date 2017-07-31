@@ -7,10 +7,18 @@ const express = require("express");
 const app = express();
 const logger = require("./util/logger");
 const config = require("./config/config");
-
+const isProd = app.get('env') === 'production' ? true : false
+console.log("isProd =" +  isProd)
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
+if(isProd){
+  app.set('views', path.join(__dirname, '../../../client/build'));
+  app.set('view engine', 'html');
+  app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+  app.use('/client', express.static('client'));
+}
+
 
 //Setup Route
 const api = require("./api/router");

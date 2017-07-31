@@ -9,9 +9,8 @@
     "testserver": "mocha -b --reporter=min --timeout 10000",
     "pretty": "prettier --write './src/**/*.js'",
     "startclient": "node client/scripts/start.js",
-    "build": "node client/scripts/build.js",
+    "build:client": "node client/scripts/build.js",
     "testclient": "jest",
-    "build:client": "webpack --config client/config/webpack.config.dev.js --production",
     "start": "npm run dev"
   },
   "repository": {
