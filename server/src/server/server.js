@@ -15,10 +15,11 @@ console.log("isProd =" +  isProd)
 const middleware = require("./middleware/middleware");
 middleware(app);
 if(isProd){
-  app.set('views', path.join(__dirname, '../../../client/build'));
-  app.set('view engine', 'html');
-  app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
-  app.use('/client', express.static('client'));
+    const indexPath = path.join(__dirname, '../../../client/build/index.html');
+    const publicPath = express.static(path.join(__dirname, '/'));
+
+    app.use('../../../client/build', publicPath);
+    app.get('/', function (_, res) { res.sendFile(indexPath) });
 }
 
 
