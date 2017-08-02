@@ -11,7 +11,7 @@
     "startclient": "node client/scripts/start.js",
     "build:client": "node client/scripts/build.js",
     "testclient": "jest",
-    "start": "npm run build:client && npm run startserver --",
+    "start": "npm run build:client && npm run startserver",
     "testprod": "nodemon server/src/index.js --production"
   },
   "repository": {
