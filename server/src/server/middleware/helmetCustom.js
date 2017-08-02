@@ -7,7 +7,7 @@ function helmetCustom(app) {
             defaultSrc: ["'self'", 'localhost:3000']
         }
     }))
-    app.use(helmet.referrerPolicy({policy: 'same-origin'}))
+    app.use(helmet.referrerPolicy({policy: 'no-referrer'}))
     app.use(helmet.hidePoweredBy({setTo: "The Death Star"}))
 }
 

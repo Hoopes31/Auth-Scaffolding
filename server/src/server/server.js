@@ -8,18 +8,23 @@ const express = require("express");
 const app = express();
 const logger = require("./util/logger");
 const config = require("./config/config");
-const isProd = app.get('env') === 'production' ? true : false
-
-console.log("isProd =" +  isProd)
+const fs = require("fs");
+require("dotenv").config();
+const isProd = process.env.production ? true : false
+console.log("isProd = " +  isProd)
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
 if(isProd){
-    const indexPath = path.join(__dirname, '../../../client/build/index.html');
-    const publicPath = express.static(path.join(__dirname, '/'));
+  const BUILD_DIR = path.resolve(__dirname, "../../../client/build")
 
-    app.use('../../../client/build', publicPath);
-    app.get('/', function (_, res) { res.sendFile(indexPath) });
+  //Serving the files on the BUILD folder
+  app.use(express.static(BUILD_DIR));
+  //Send index.html when the user access the web
+  app.get("*", function (req, res) {  
+    res.header("content-type", "application/javascript")
+    res.sendFile(path.resolve(BUILD_DIR, "index.html"));
+  });
 }
 
 

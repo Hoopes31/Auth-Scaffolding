@@ -11,7 +11,8 @@
     "startclient": "node client/scripts/start.js",
     "build:client": "node client/scripts/build.js",
     "testclient": "jest",
-    "start": "npm run build:client && npm run startserver"
+    "start": "npm run build:client && npm run startserver --",
+    "testprod": "nodemon server/src/index.js --production"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,6 @@
   "bugs": {
     "url": "https://github.com/Hoopes31/Auth-Scaffolding/issues"
   },
-  "homepage": "https://github.com/Hoopes31/Auth-Scaffolding#readme",
   "dependencies": {
     "autoprefixer": "7.1.0",
     "babel-core": "^6.25.0",
