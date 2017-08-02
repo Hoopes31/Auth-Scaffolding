@@ -8,8 +8,6 @@ const express = require("express");
 const app = express();
 const logger = require("./util/logger");
 const config = require("./config/config");
-const fs = require("fs");
-require("dotenv").config();
 const isProd = process.env.NODE_ENV === 'production' ? true : false
 console.log("isProd = " +  isProd)
 //Middleware Loaded:
