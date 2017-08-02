@@ -10,12 +10,13 @@ const logger = require("./util/logger");
 const config = require("./config/config");
 const fs = require("fs");
 require("dotenv").config();
-const isProd = process.env.production ? true : false
+const isProd = process.env.NODE_ENV === 'production' ? true : false
 console.log("isProd = " +  isProd)
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
 if(isProd){
+  //server files if we are in a production env
   const BUILD_DIR = path.resolve(__dirname, "../../../client/build")
 
   //Serving the files on the BUILD folder

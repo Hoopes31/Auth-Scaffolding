@@ -91,6 +91,7 @@
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
   },
+  "proxy": "http://localhost:3001",
   "babel": {
     "presets": [
       "react-app"

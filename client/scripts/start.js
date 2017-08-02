@@ -40,7 +40,6 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 }
 
 // Tools like Cloud9 rely on this.
-console.log("process.env: " + JSON.stringify(process.env));
 const DEFAULT_PORT = parseInt(process.env.DEV_SERVER_PORT, 10) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
