@@ -21,11 +21,11 @@ if(isProd){
   //Serving the files on the BUILD folder
   app.use(express.static(BUILD_DIR));
   //Send index.html when the user access the web
-  app.get("*", function (req, res) {  
-    res.header("content-type", "application/javascript")
+  app.get(/^((?!api).)*$/g, function (req, res) {  
     res.sendFile(path.resolve(BUILD_DIR, "index.html"));
   });
 }
+
 
 
 //Setup Route

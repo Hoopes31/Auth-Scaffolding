@@ -1,7 +1,6 @@
 const helmet = require('helmet')
 
 function helmetCustom(app) {
-    console.log(`localhost:${process.env.PORT}`)
     app.use(helmet());
     app.use(helmet.contentSecurityPolicy({
         directives: {

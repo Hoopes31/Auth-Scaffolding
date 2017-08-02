@@ -1,7 +1,4 @@
 module.exports = {
-  db: {
-    url: "production"
-  },
   seed: true,
   logging: true,
   secrets: {

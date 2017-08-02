@@ -12,13 +12,11 @@ class AdminDashboard extends Component {
 
     getUsers(){
         const query = `/api/admin/findAllUsers/?username=user&paginationDate=${new Date().toISOString()}`
-        console.log(query)
         fetch(query, setHeader('GET', localStorage.getItem('Authorization'), {}))
             .then((response) => {
                 return response.json()
             })
             .then((response) => {
-                console.log(response)
                 this.setState({users: response})
             })
     }
