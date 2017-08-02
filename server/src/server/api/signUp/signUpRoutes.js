@@ -1,5 +1,5 @@
 const signUpRouter = require("express").Router();
-const controller = require("./signUpController");
+const controller = require("./signUpcontroller");
 
 signUpRouter.route("/").post(controller.createUser);
 

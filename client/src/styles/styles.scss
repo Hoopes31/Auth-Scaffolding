@@ -2,7 +2,7 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
 @import "_flatly_variables.scss"; // swap this out with another variables file to change theme
-@import '../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 .dash-button{
     cursor: pointer;

@@ -4,10 +4,11 @@ function helmetCustom(app) {
     app.use(helmet());
     app.use(helmet.contentSecurityPolicy({
         directives: {
-            defaultSrc: ["'self'", 'localhost:3000']
+            defaultSrc: ["'self'", `localhost:${process.env.PORT}`],
+            styleSrc: ["'self'", "'unsafe-inline'"]
         }
     }))
-    app.use(helmet.referrerPolicy({policy: 'same-origin'}))
+    app.use(helmet.referrerPolicy({policy: 'no-referrer'}))
     app.use(helmet.hidePoweredBy({setTo: "The Death Star"}))
 }
 
