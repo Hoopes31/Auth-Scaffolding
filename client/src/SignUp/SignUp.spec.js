@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import SignUp from "./SignUp"
-import { shallow } from 'enzyme'
+import React from "react";
+import ReactDOM from "react-dom";
+import SignUp from "./SignUp";
+import { shallow } from "enzyme";
 
-it('renders without crashing', () => {
-  shallow(<SignUp />)
-})
+it("renders without crashing", () => {
+  shallow(<SignUp />);
+});

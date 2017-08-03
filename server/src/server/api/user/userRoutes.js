@@ -9,7 +9,6 @@ userRouter.route("/").get(function(req, res, next) {
 
 //Grab All Users
 
-
 //Delete User
 
 /*

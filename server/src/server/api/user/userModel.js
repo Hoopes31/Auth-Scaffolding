@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
 
@@ -27,11 +28,11 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'admin', 'moderator'],
-    default: 'user'
+    enum: ["user", "admin", "moderator"],
+    default: "user"
   },
-  date: { 
-    type: Date, 
+  date: {
+    type: Date,
     default: Date.now()
   }
 });
@@ -57,7 +58,6 @@ UserSchema.methods = {
     if (!plainTextPassword) {
       return "";
     } else {
-
       //Salt the Password
       var salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(plainTextPassword, salt);

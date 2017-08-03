@@ -53,13 +53,13 @@ exports.verifyUser = (req, res) => {
     User.findOne({ username: username }).then(user => {
       if (!user) {
         res.status(401).send("No user by that Username");
-        
+
         // Check to see if pass matches with the authenticate method we created on the User Model. --> api/user/userModel
       } else {
         if (!user.authenticate(password)) {
           res.status(401).send("That is the wrong password");
-        
-        //if all good attach req.user to user for further work on user.
+
+          //if all good attach req.user to user for further work on user.
         } else {
           req.user = user;
           return next();
@@ -71,21 +71,23 @@ exports.verifyUser = (req, res) => {
   };
 };
 
-exports.roleAuthorization = function(roles){
-    return function(req, res, next){
-        let user = req.user;
-        User.findById(user._id, function(err, foundUser){
-            if(err){
-                return res.status(422).json({error: 'No user found.'});
-            }
-            if(roles.indexOf(foundUser.role) > -1){
-                return next();
-            }
-            res.status(401).json({error: 'You are not authorized to view this content'});
-            return next('Unauthorized');
-        });
-    }
-}
+exports.roleAuthorization = function(roles) {
+  return function(req, res, next) {
+    let user = req.user;
+    User.findById(user._id, function(err, foundUser) {
+      if (err) {
+        return res.status(422).json({ error: "No user found." });
+      }
+      if (roles.indexOf(foundUser.role) > -1) {
+        return next();
+      }
+      res
+        .status(401)
+        .json({ error: "You are not authorized to view this content" });
+      return next("Unauthorized");
+    });
+  };
+};
 
 exports.signToken = id => {
   //send back a signed ID + Secret with Expiration Count

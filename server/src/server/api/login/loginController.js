@@ -7,9 +7,9 @@ const signToken = require("../../auth/auth").signToken;
 
 exports.login = (req, res, next) => {
   const token = `Bearer ${signToken(req.user._id)}`;
-  const role = req.user.role
-  return res.json({ 
+  const role = req.user.role;
+  return res.json({
     token: token,
     role: role
-   });
+  });
 };

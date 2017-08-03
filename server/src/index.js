@@ -3,6 +3,7 @@
 var config = require("./server/config/config");
 var app = require("./server/server.js");
 var mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
 require("dotenv").config();
 
 //Database Start

@@ -1,15 +1,17 @@
-const helmet = require('helmet')
+const helmet = require("helmet");
 
 function helmetCustom(app) {
-    app.use(helmet());
-    app.use(helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: ["'self'", `localhost:${process.env.PORT}`],
-            styleSrc: ["'self'", "'unsafe-inline'"]
-        }
-    }))
-    app.use(helmet.referrerPolicy({policy: 'no-referrer'}))
-    app.use(helmet.hidePoweredBy({setTo: "The Death Star"}))
+  app.use(helmet());
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'", `localhost:${process.env.PORT}`],
+        styleSrc: ["'self'", "'unsafe-inline'"]
+      }
+    })
+  );
+  app.use(helmet.referrerPolicy({ policy: "no-referrer" }));
+  app.use(helmet.hidePoweredBy({ setTo: "The Death Star" }));
 }
 
-module.exports = helmetCustom
+module.exports = helmetCustom;

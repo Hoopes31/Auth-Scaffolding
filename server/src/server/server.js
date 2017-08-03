@@ -3,37 +3,35 @@
 //Add MIDDLEWARE, ERROR HANDLING & ROUTES then export.
 
 //Instance of Express created:
-const path =  require('path');
+const path = require("path");
 const express = require("express");
 const app = express();
 const logger = require("./util/logger");
 const config = require("./config/config");
-const isProd = process.env.NODE_ENV === 'production' ? true : false
-console.log("isProd = " +  isProd)
+const isProd = process.env.NODE_ENV === "production" ? true : false;
+console.log("isProd = " + isProd);
 //Middleware Loaded:
 const middleware = require("./middleware/middleware");
 middleware(app);
-if(isProd){
+if (isProd) {
   //server files if we are in a production env
-  const BUILD_DIR = path.resolve(__dirname, "../../../client/build")
+  const BUILD_DIR = path.resolve(__dirname, "../../../client/build");
 
   //Serving the files on the BUILD folder
   app.use(express.static(BUILD_DIR));
   //Send index.html when the user access the web
-  app.get(/^((?!api).)*$/g, function (req, res) {  
+  app.get(/^((?!api).)*$/g, function(req, res) {
     res.sendFile(path.resolve(BUILD_DIR, "index.html"));
   });
 }
-
-
 
 //Setup Route
 const api = require("./api/router");
 app.use("/api", api);
 
 //Setup Seed
-if(config.seed) {
-  require('./util/seed')
+if (config.seed) {
+  require("./util/seed");
 }
 
 //Setup Error Handling
