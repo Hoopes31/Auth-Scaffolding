@@ -20,7 +20,7 @@ class SiteNavbar extends Component{
       <Navbar collapseOnSelect>
        <Navbar.Header>
         <Navbar.Brand>
-          <Link to="/">Boilerplate</Link>
+          <Link to="/">MtgTrader</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         </Navbar.Header>
@@ -39,8 +39,9 @@ class SiteNavbar extends Component{
         return( 
           <Nav pullRight>
             {this.props.isAdmin ? <AdminPanel />: null}
-            <NavItem eventKey={1} onClick={this.props.handleNavLink} href="/profile">Profile</NavItem>
-            <NavItem eventKey={2} onClick={this.props.handleNavLink} href="/">Logout</NavItem>
+            <NavItem eventKey={1} onClick={this.props.handleNavLink} href="/trader">Trade</NavItem>
+            <NavItem eventKey={2} onClick={this.props.handleNavLink} href="/profile">Profile</NavItem>
+            <NavItem eventKey={3} onClick={this.props.handleNavLink} href="/">Logout</NavItem>
           </Nav>
         )
         }else{

@@ -6,6 +6,7 @@ import Profile from './Profile/Profile'
 import Landing from './Landing/Landing'
 import SiteNavbar from './SiteNavbar/SiteNavbar'
 import AdminDashboard from './AdminDashboard/AdminDashboard'
+import TraderPage from './Trade/TradeContainer'
 import Unauthorized from './Errors/Unauthorized'
 import LoggedOutOnly from './Errors/LoggedOutOnly'
 import NotFound from './Errors/NotFound'
@@ -120,6 +121,7 @@ class Router extends Component{
                 <Route path="/signup" component={this.loggedOutOnly(<SignUp checkForCredentials={this.checkForCredentials}/>)} />
                 <Route path="/login" component={this.loggedOutOnly(<Login login = {this.login} />)} />
                 <Route path="/profile" component={this.protect(<Profile />)} />
+                <Route path="/trader" component={TraderPage}/>
                 <Route path="/admindashboard" component={this.adminOnly(<AdminDashboard />)} />
                 <Route component={NotFound} />
             </Switch>
