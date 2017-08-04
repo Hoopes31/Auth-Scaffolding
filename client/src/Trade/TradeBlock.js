@@ -30,6 +30,7 @@ class CardPanel extends Component{
             <h4>{this.props.card.name} | Price Avg: {parseFloat(this.props.card.price).toFixed(2)} </h4> 
             <Glyphicon glyph={`arrow-${this.props.card.trending}`} /> 
             <Glyphicon glyph="remove" onClick={this.props.removeCard} type={this.props.card.name} id={this.props.trader.name} className="pull-right"/>  
+             {/* <Button bsStyle="danger" onClick={this.props.removeCard} name={this.props.trader.name} id="red" className="pull-right">Delete</Button>  */}
         </div>)
     }
     componentWillMount(){
