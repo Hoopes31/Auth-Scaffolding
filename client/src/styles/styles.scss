@@ -1,49 +1,9 @@
 //this fixes an error with the icons, do not remove
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
-@import "_cyborg_variables.scss"; // swap this out with another variables file to change theme
+@import "_flatly_variables.scss"; // swap this out with another variables file to change theme
 @import '../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-@import "autosuggest.scss";
+
 .dash-button{
     cursor: pointer;
 }
-.trade-block{
-    h4{
-        display: inline;
-    }
-    .glyphicon-arrow-up {
-        color: $brand-success;
-    }
-    .glyphicon-arrow-down {
-        color: $brand-danger;
-    }
-    .glyphicon-remove {
-        color: $brand-danger;
-    }
-    h2{
-        margin-top: 0px;
-    }
-    .red{
-        color: $brand-danger;
-    }
-    .blue{
-        color: $brand-primary;
-    }
-}
-.trade-container{
-
-    .input-well{
-        height: 76px;
-        padding-left: 2.5px;
-        padding-right: 2.5px;
-        div{
-            padding-left: 2.5px;
-            padding-right: 2.5px;
-        }
-    }
-    .btn-group input{
-        padding-left: 2.5px;
-        padding-right: 2.5px;
-    }
-}
-
